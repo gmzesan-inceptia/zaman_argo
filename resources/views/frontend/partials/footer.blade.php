@@ -34,11 +34,9 @@
             <div class="col-lg-2 col-6 mt_50 fade-up">
                 <h4><span>Products</span></h4>
                 <ul>
-                    <li><a href="{{ route('products') }}">Medjool Dates</a></li>
-                    <li><a href="{{ route('products') }}">Deglet Noor</a></li>
-                    <li><a href="{{ route('products') }}">Ajwa Dates</a></li>
-                    <li><a href="{{ route('products') }}">Sukkari Dates</a></li>
-                    <li><a href="{{ route('products') }}">Khalas Dates</a></li>
+                    @foreach($headerCategories as $category)
+                        <li><a href="{{ route('products', ['category' => $category->id]) }}">{{ $category->name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>

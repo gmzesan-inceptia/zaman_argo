@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -9,7 +11,10 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $categories = Category::all();
+        $featured = Product::latest()->limit(3)->get();
+        $products = Product::latest()->limit(8)->get();
+        return view('frontend.index', compact('categories', 'featured', 'products'));
     }
 
     public function about()
@@ -17,14 +22,52 @@ class FrontendController extends Controller
         return view('frontend.about');
     }
 
-    public function products()
+    public function products(Request $request)
     {
-        return view('frontend.products');
+        $query = Product::query();
+
+        // Search filter
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        }
+
+        // Category filter
+        if ($request->has('category') && !empty($request->category) && $request->category !== 'all') {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('id', $request->category);
+            });
+        }
+
+        // Sorting
+        if ($request->has('sort') && !empty($request->sort)) {
+            if ($request->sort === 'price-asc') {
+                $query->orderBy('new_price', 'asc');
+            } elseif ($request->sort === 'price-desc') {
+                $query->orderBy('new_price', 'desc');
+            } else {
+                $query->latest();
+            }
+        } else {
+            $query->latest();
+        }
+
+        // Pagination - 12 items per page
+        $products = $query->paginate(12);
+        $categories = Category::all();
+
+        return view('frontend.products', compact('products', 'categories'));
     }
 
-    public function productDetails()
+    public function productDetails($id)
     {
-        return view('frontend.product-details');
+        $product = Product::with('category', 'images')->findOrFail($id);
+        $relatedProducts = Product::where('category_id', $product->category_id)
+                                    ->where('id', '!=', $product->id)
+                                    ->limit(4)
+                                    ->get();
+        return view('frontend.product-details', compact('product', 'relatedProducts'));
     }
 
     

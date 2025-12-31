@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use App\Models\SubCategory;
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -17,15 +17,15 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        $subcategories = SubCategory::all();
+        $categories = Category::all();
 
-        foreach ($subcategories as $subcategory) {
+        foreach ($categories as $category) {
             for ($i = 1; $i <= 3; $i++) {
+                $title = ucfirst($faker->words(rand(1,3), true));
                 Product::create([
-                    'title' => ucfirst($faker->words(rand(1,3), true)),
-                    'category_id' => $subcategory->category_id,
-                    'subcategory_id' => $subcategory->id,
-                    'slug' => '',
+                    'title' => $title,
+                    'category_id' => $category->id,
+                    'slug' => Str::slug($title),
                     'image' => 'products/default.jpg',
                     'description' => implode("\n", $faker->paragraphs(3)),
                     'old_price' => $faker->randomFloat(2, 50, 200),

@@ -9,16 +9,15 @@ use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
     protected $fillable = [
-        'category_id','subcategory_id',
-        'title','slug','description','image','old_price','new_price'
+        'category_id','title','slug','description','image','old_price','new_price'
     ];
 
     public function category() {
         return $this->belongsTo(Category::class);
     }
 
-    public function subcategory() {
-        return $this->belongsTo(Subcategory::class);
+    public function images() {
+        return $this->hasMany(ProductImage::class);
     }
 
     protected static function booted() {
@@ -32,6 +31,14 @@ class Product extends Model
         static::deleting(function($p){
             if ($p->image && Storage::disk('public')->exists($p->image)) {
                 Storage::disk('public')->delete($p->image);
+            }
+            
+            // Delete all associated product images
+            foreach ($p->images as $productImage) {
+                if (Storage::disk('public')->exists($productImage->image_path)) {
+                    Storage::disk('public')->delete($productImage->image_path);
+                }
+                $productImage->delete();
             }
         });
     }

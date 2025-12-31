@@ -6,7 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\SubCategory;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
@@ -19,15 +19,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Product::select('id', 'slug', 'category_id', 'subcategory_id', 'title', 'description', 'image', 'old_price', 'new_price')->with(['category:id,name',
-            'subcategory:id,name'])->get();
+            $query = Product::select('id', 'slug', 'category_id', 'title', 'description', 'image', 'old_price', 'new_price')->with(['category:id,name'])->get();
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('category_id', function ($row) {
                     return $row->category ? $row->category->name : 'N/A';
-                })
-                ->addColumn('subcategory_id', function ($row) {
-                    return $row->subcategory ? $row->subcategory->name : 'N/A';
                 })
                 ->addColumn('image', function ($row) {
                     return $row->image ? asset('storage/' . $row->image) : 'No Image';
@@ -52,7 +48,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::with('subcategories')->get();
+        $categories = Category::all();
         return view('admin.products.create', compact('categories'));
     }
 
@@ -66,7 +62,23 @@ class ProductController extends Controller
             $path = $request->file('image')->store('products','public');
             $data['image'] = $path;
         }
-        Product::create($data);
+        $product = Product::create($data);
+
+        // Handle multiple product images
+        if ($request->hasFile('images') && count($request->file('images')) > 0) {
+            foreach ($request->file('images') as $image) {
+                // Skip null or empty files
+                if (is_null($image)) {
+                    continue;
+                }
+                
+                $imagePath = $image->store('products', 'public');
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $imagePath,
+                ]);
+            }
+        }
 
         return redirect()->route('products.index')->with('success', 'Product added successfully');
     }
@@ -87,9 +99,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::with('subcategories')->get();
-        $subcategories = SubCategory::all();
-        return view('admin.products.edit', compact('product', 'categories', 'subcategories'));
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -106,6 +117,29 @@ class ProductController extends Controller
         }
         $product->update($data);
 
+        // Handle multiple product images
+        if ($request->hasFile('images')) {
+            // Delete old images
+            foreach ($product->images as $productImage) {
+                if (Storage::disk('public')->exists($productImage->image_path)) {
+                    Storage::disk('public')->delete($productImage->image_path);
+                }
+                $productImage->delete();
+            }
+
+            // Add new images
+            $images = $request->file('images');
+            foreach ($images as $index => $image) {
+                if ($image !== null && is_object($image)) {
+                    $imagePath = $image->store('products', 'public');
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image_path' => $imagePath,
+                    ]);
+                }
+            }
+        }
+
         return redirect()->route('products.index')->with('success', 'Product updated');
     }
 
@@ -114,14 +148,21 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // Delete thumbnail image if exists
+        if ($product->image && Storage::disk('public')->exists($product->image)) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        // Delete all gallery images
+        foreach ($product->images as $productImage) {
+            if (Storage::disk('public')->exists($productImage->image_path)) {
+                Storage::disk('public')->delete($productImage->image_path);
+            }
+            $productImage->delete();
+        }
+
+        // Delete the product
         $product->delete();
         return back()->with('success', 'Product deleted');
-    }
-
-
-    public function getSubcategories($id)
-    {
-        $subcategories = SubCategory::where('category_id', $id)->select('id', 'name')->get();
-        return response()->json($subcategories);
     }
 }

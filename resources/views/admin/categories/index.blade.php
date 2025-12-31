@@ -45,7 +45,7 @@
 
             {{-- Right Side: Form --}}
             <div class="col-5">
-                <form action="{{ isset($category) ? route('categories.update', ['category' => $category->id]) : route('categories.store') }}" method="POST" autocomplete="off">
+                <form action="{{ isset($category) ? route('categories.update', ['category' => $category->id]) : route('categories.store') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                     @csrf
                     @if(isset($category)) @method('PUT') @endif
                     <div class="row">
@@ -80,6 +80,43 @@
                                             @error('description')
                                                 <div class="error_msg">{{ $message }}</div>
                                             @enderror
+                                        </div>
+
+                                        {{-- Category Image --}}
+                                        <div class="col-12 mb-3">
+                                            <div class="card table-card">
+                                                <div class="table-header">
+                                                    <div class="table-title">Category Image</div>
+                                                </div>
+                                                <div class="custom-form card-body">
+                                                    <div class="image-select-file">
+                                                        <label class="form-label custom-label" for="category_image">
+                                                            <input type="hidden" id="category_image_data" name="category_image_data">
+                                                            <input type="file" id="category_image" name="image"
+                                                                class="form-file-input form-control custom-input d-none"
+                                                                onchange="imageUpload(this)">
+                                                            <div class="user-image">
+                                                                <img id="category_imagePreview" 
+                                                                    src="{{ isset($category) && $category->image ? asset('storage/' . $category->image) : asset('images/default.jpg') }}"
+                                                                    class="image-preview">
+                                                                <img id="category_imagePreviewNo" src="{{ asset('images/default.jpg') }}"
+                                                                    class="image-preview d-none">
+                                                                <span class="formate-error category_imageerror"></span>
+                                                            </div>
+                                                            <span class="upload-btn">Upload Image</span>
+                                                        </label>
+                                                    </div>
+
+                                                    {{-- Remove button --}}
+                                                    <div class="delete-btn mt-2 {{ isset($category) && $category->image ? '' : 'd-none' }} remove-image" id="category_imageDelete"
+                                                        onclick="removeImage('category_image')">Remove image
+                                                    </div>
+
+                                                    @error('image')
+                                                        <div class="error_msg">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -127,5 +164,71 @@
                 ]
             });
         });
+
+        // Image upload handling for category
+        const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+
+        function imageUpload(input) {
+            const id = input.id;
+            const file = input.files[0];
+            const errorBox = $('.' + id + 'error');
+
+            if (!file) return;
+
+            // Validate file type
+            if (!validateImageFile(file)) {
+                errorBox.html('Please select a valid image (JPG, PNG, GIF, WEBP)').show();
+                resetImage(id);
+                return;
+            }
+
+            // Validate file size
+            if (file.size > MAX_FILE_SIZE) {
+                errorBox.html('Image size must not exceed 2MB').show();
+                resetImage(id);
+                return;
+            }
+
+            errorBox.hide();
+            readURL(input, id);
+            $('#' + id + 'Delete').removeClass('d-none');
+        }
+
+        function validateImageFile(file) {
+            // Check MIME type
+            if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+                return false;
+            }
+            
+            // Also check extension for extra validation
+            const ext = file.name.split('.').pop().toLowerCase();
+            return ALLOWED_EXTENSIONS.includes(ext);
+        }
+
+        function readURL(input, id) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#' + id + 'Preview').attr('src', e.target.result).removeClass('d-none');
+                    $('#' + id + 'PreviewNo').addClass('d-none');
+                    $('#' + id + '_data').val(input.files[0].name);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeImage(id) {
+            resetImage(id);
+            $('#' + id).val(null);
+        }
+
+        function resetImage(id) {
+            $('#' + id + 'Preview').addClass('d-none').attr('src', '');
+            $('#' + id + 'PreviewNo').removeClass('d-none');
+            $('#' + id + '_data').val('');
+            $('#' + id + 'Delete').addClass('d-none');
+        }
     </script>
 @endpush

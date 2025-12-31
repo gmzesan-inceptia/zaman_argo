@@ -24,6 +24,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:categories,name,' . $this->route('category')->id,
             'description' => 'nullable|string',
+            'image' => 'nullable|max:2048',
         ];
     }
 }

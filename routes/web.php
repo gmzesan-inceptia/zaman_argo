@@ -7,6 +7,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\SubcategoryController;
 use Illuminate\Support\Facades\Session;
 
@@ -14,8 +15,8 @@ use Illuminate\Support\Facades\Session;
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/about-us', [FrontendController::class, 'about'])->name('about');
 Route::get('/products', [FrontendController::class, 'products'])->name('products');
+Route::get('/products/{id}/details', [FrontendController::class, 'productDetails'])->name('product.details');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
-Route::get('/products/details', [FrontendController::class, 'productDetails'])->name('product.details');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('products', ProductController::class)->except(['show']);
 
+        Route::delete('/product-images/{productImage}', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
 
         Route::get('categories/{id}/subcategories', [ProductController::class, 'getSubcategories'])->name('categories.subcategories');
         

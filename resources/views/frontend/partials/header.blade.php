@@ -13,11 +13,9 @@
                         <li class="dropdown_wrap">
                             <a href="{{ route('products') }}">Products</a>
                             <ul class="dropdown">
-                                <li><a href="{{ route('products') }}">Medjool Dates</a></li>
-                                <li><a href="{{ route('products') }}">Deglet Noor</a></li>
-                                <li><a href="{{ route('products') }}">Ajwa Dates</a></li>
-                                <li><a href="{{ route('products') }}">Sukkari Dates</a></li>
-                                <li><a href="{{ route('products') }}">Khalas Dates</a></li>
+                                @foreach($headerCategories as $category)
+                                    <li><a href="{{ route('products', ['category' => $category->id]) }}">{{ $category->name }}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                     </ul>

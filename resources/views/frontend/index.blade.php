@@ -31,26 +31,14 @@
 		<section class="category_area">
 			<div class="container">
 				<div class="category_carousel owl-carousel category-carousel">
-					<div class="category_item">
-						<div class="cat_img"><img src="/frontend/img/category/ajwa.png" alt="Dates"></div>
-						<h5>Dates</h5>
-					</div>
-					<div class="category_item">
-						<div class="cat_img"><img src="/frontend/img/category/ghee.png" alt="Ghee"></div>
-						<h5>Ghee</h5>
-					</div>
-					<div class="category_item">
-						<div class="cat_img"><img src="/frontend/img/category/herbs.png" alt="Herbs"></div>
-						<h5>Herbs</h5>
-					</div>
-					<div class="category_item">
-						<div class="cat_img"><img src="/frontend/img/category/honey.png" alt="Honey"></div>
-						<h5>Honey</h5>
-					</div>
-					<div class="category_item">
-						<div class="cat_img"><img src="/frontend/img/category/nuts.png" alt="Nuts"></div>
-						<h5>Nuts</h5>
-					</div>
+					@foreach($categories as $category)
+						<div class="category_item">
+							<div class="cat_img">
+                                <img src="{{ 'storage/' . $category->image }}" alt="{{ $category->name }}">
+                            </div>
+							<h5>{{ $category->name }}</h5>
+						</div>
+					@endforeach
 				</div>
 			</div>
 		</section>
@@ -67,48 +55,30 @@
 					<button class="feat_next" aria-label="Next"><i class="ri-arrow-right-s-line"></i></button>
 				</div>
                 <div class="featured_carousel owl-carousel">
-                    <div class="featured_card">
-                        <span class="ribbon">Featured</span>
-                        <div class="feat_img">
-                            <img src="/frontend/img/products/Medjool.jpg" alt="Medjool">
+                    @foreach($featured as $index => $product)
+                        <div class="featured_card">
+                            <span class="ribbon">
+                                @if($index === 0)
+                                    Featured
+                                @elseif($index === 1)
+                                    Limited
+                                @else
+                                    Popular
+                                @endif
+                            </span>
+                            <div class="feat_img">
+                                <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}">
+                            </div>
+                            <div class="feat_meta">
+                                <h5>{{ $product->title }}</h5>
+                                <div class="price">BDT {{ number_format($product->new_price, 0) }}</div>
+                                <p class="feat_desc">{{ Str::limit($product->description, 60) }}</p>
+                            </div>
+                            <div class="feat_actions">
+                                <a href="{{ route('product.details', $product->slug) }}" class="button splitedText">Order Now</a>
+                            </div>
                         </div>
-                        <div class="feat_meta">
-                            <h5>Medjool Dates</h5>
-                            <div class="price">BDT 450</div>
-                            <p class="feat_desc">Soft, caramel-like and naturally sweet — ideal for gifting.</p>
-                        </div>
-                        <div class="feat_actions">
-                            <a href="{{ route('product.details') }}" class="button splitedText">Order Now</a>
-                        </div>
-                    </div>
-                    <div class="featured_card">
-                        <span class="ribbon">Limited</span>
-                        <div class="feat_img">
-                            <img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa">
-                        </div>
-                        <div class="feat_meta">
-                            <h5>Ajwa Dates</h5>
-                            <div class="price">BDT 520</div>
-                            <p class="feat_desc">Rich and prized for heritage flavour and texture.</p>
-                        </div>
-                        <div class="feat_actions">
-                            <a href="{{ route('product.details') }}" class="button splitedText">Order Now</a>
-                        </div>
-                    </div>
-                    <div class="featured_card">
-                        <span class="ribbon">Popular</span>
-                        <div class="feat_img">
-                            <img src="/frontend/img/products/Segai.jpg" alt="Segai">
-                        </div>
-                        <div class="feat_meta">
-                            <h5>Segai Dates</h5>
-                            <div class="price">BDT 380</div>
-                            <p class="feat_desc">Chewy texture with a delicate honey note.</p>
-                        </div>
-                        <div class="feat_actions">
-                            <a href="{{ route('product.details') }}" class="button splitedText">Order Now</a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -125,120 +95,27 @@
 					</div>
 				</div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Medjool Dates</h5>
+                    @foreach($products as $product)
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product_card">
+                                <div class="product_img"><img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}"></div>
+                                <div class="product_info">
+                                    <div class="product_meta">
+                                        <h5>{{ $product->title }}</h5>
+                                    </div>
+                                    <div class="price">BDT {{ number_format($product->new_price, 0) }}</div>
                                 </div>
-                                <div class="price">BDT 450</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Soft, caramel-like and naturally sweet. Packed for freshness &amp; quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
+                                <div class="product_subwrap">
+                                    <p class="product_sub">{{ Str::limit($product->description, 80) }}</p>
+                                </div>
+                                <div class="product_overlay">
+                                    <a href="{{ route('product.details', $product->slug) }}" class="button primary">
+                                        <div class="btn_text">View Details</div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Ajwa Dates</h5>
-                                </div>
-                                <div class="price">BDT 520</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Rich, mildly chewy and prized for flavor. Packed for freshness &amp; quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Segai Dates</h5>
-                                </div>
-                                <div class="price">BDT 380</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Chewy texture with a delicate honey note. Packed for freshness &amp; quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Sokari Dates</h5>
-                                </div>
-                                <div class="price">BDT 430</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Buttery, sweet and excellent for snacking. Packed for freshness &amp; quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Kholas.jpg" alt="Khalas Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Kholas Dates</h5>
-                                </div>
-                                <div class="price">BDT 400</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Classic, tender with a subtle caramel finish. Packed for freshness &amp; quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Wanan.jpg" alt="Wanan Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Wanan Dates</h5>
-                                </div>
-                                <div class="price">BDT 620</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Premium, large-sized with jammy sweetness. Packed for freshness &amp; quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 				<div class="row">
 					<div class="col-12 text-center product_cta">

@@ -30,7 +30,6 @@
                                 <th>SL</th>
                                 <th>Product Title</th>
                                 <th>Category</th>
-                                <th>Subcategory</th>
                                 <th>Description</th>
                                 <th>Image</th>
                                 <th>Old Price</th>
@@ -60,7 +59,6 @@
                     { data: 'id' },
                     { data: 'title', name: 'title', orderable: true, searchable: true },
                     { data: 'category_id', name: 'category_id', orderable: true, searchable: true },
-                    { data: 'subcategory_id', name: 'subcategory_id', orderable: true, searchable: true },
                     { data: 'description', name: 'description', orderable: false, searchable: true },
                     {
                         data: 'image',

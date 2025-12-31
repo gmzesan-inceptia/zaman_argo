@@ -8,7 +8,7 @@
         </a>
     </div>
     <ul class="nav_list ps-0 scrollbar">
-        {{-- <li class="category-li">
+        <li class="category-li">
             <span class="link_names">Dashboard</span>
         </li>
         <li>
@@ -21,9 +21,9 @@
 
         <li class="category-li">
             <span class="link_names">Main</span>
-        </li> --}}
+        </li>
 
-        {{-- <li>
+        <li>
             <a href="{{ route('categories.index') }}"
             class="{{ Route::is('categories.*') ? 'active-focus' : '' }}">
                 <i class="ri-list-ordered-2"></i>
@@ -31,13 +31,13 @@
             </a>
         </li>
 
-        <li>
+        {{-- <li>
             <a href="{{ route('subcategories.index') }}"
             class="{{ Route::is('subcategories.*') ? 'active-focus' : '' }}">
                 <i class="ri-list-ordered"></i>
                 <span class="link_names">Manage Subcategories</span>
             </a>
-        </li>
+        </li> --}}
 
         <li>
             <a href="{{ route('products.index') }}"
@@ -45,7 +45,7 @@
                 <i class="ri-product-hunt-line"></i>
                 <span class="link_names">Manage Products</span>
             </a>
-        </li> --}}
+        </li>
 
         <li>
             <a href="{{ route('contacts.index') }}"

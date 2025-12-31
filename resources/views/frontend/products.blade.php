@@ -37,415 +37,77 @@
                 <!-- filter bar -->
                 <div
                     class="product-filter d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                    <div class="filter_bar">
+                    <form method="GET" action="{{ route('products') }}" id="filterForm" class="filter_bar">
                         <div class="input-group">
                             <span class="input-group-text"><i class="ri-search-line"></i></span>
-                            <input type="text" class="form-control" id="searchInput" placeholder="Search products...">
+                            <input type="text" class="form-control" id="searchInput" name="search" placeholder="Search products..." value="{{ request('search') }}">
                         </div>
                         <div class="select-wrap">
-                            <select class="form-select" id="filterCategory">
-                                <option value="all">All Categories</option>
-                                <option value="medjool">Medjool</option>
-                                <option value="ajwa">Ajwa</option>
-                                <option value="segai">Segai</option>
-                                <option value="sokkari">Sokkari</option>
+                            <select class="form-select" id="filterCategory" name="category" onchange="document.getElementById('filterForm').submit()">
+                                <option value="">All Categories</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="select-wrap">
-                            <select class="form-select" id="sortSelect">
-                                <option value="default">Sort by</option>
-                                <option value="price-asc">Price: Low to High</option>
-                                <option value="price-desc">Price: High to Low</option>
+                            <select class="form-select" id="sortSelect" name="sort" onchange="document.getElementById('filterForm').submit()">
+                                <option value="">Sort by</option>
+                                <option value="price-asc" {{ request('sort') == 'price-asc' ? 'selected' : '' }}>Price: Low to High</option>
+                                <option value="price-desc" {{ request('sort') == 'price-desc' ? 'selected' : '' }}>Price: High to Low</option>
                             </select>
                         </div>
-                        <button class="btn-clear" id="clearFiltersBtn"><i class="ri-refresh-line"></i> Clear</button>
-                    </div>
-                    <div class="filter-chips" id="filterChips">
-                        <div class="chip" data-category="medjool">Medjool <span class="count">0</span></div>
-                        <div class="chip" data-category="ajwa">Ajwa <span class="count">0</span></div>
-                        <div class="chip" data-category="segai">Segai <span class="count">0</span></div>
-                        <div class="chip" data-category="sokkari">Sokkari <span class="count">0</span></div>
-                    </div>
+                        <button type="submit" class="btn-clear"><i class="ri-refresh-line"></i> Search</button>
+                        @if(request('search') || request('category') || request('sort'))
+                            <a href="{{ route('products') }}" class="btn-clear"><i class="ri-close-line"></i> Clear</a>
+                        @endif
+                    </form>
                 </div>
 
 
 
                 <div class="row g-4" id="productsGrid">
-                    <!-- add data attributes for simple JS filtering -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Medjool Dates</h5>
+                    @forelse($products as $product)
+                        <div class="col-lg-3 col-md-4 col-sm-6" data-category="{{ $product->category->id ?? '' }}" data-price="{{ $product->new_price ?? 0 }}">
+                            <div class="product_card">
+                                <div class="product_img">
+                                    <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}" alt="{{ $product->title }}">
                                 </div>
-                                <div class="price">BDT 450</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
+                                <div class="product_info">
+                                    <div class="product_meta">
+                                        <h5>{{ $product->title }}</h5>
+                                    </div>
+                                    <div class="price">BDT {{ number_format($product->new_price, 0) }}</div>
+                                </div>
+                                <div class="product_subwrap">
+                                    <p class="product_sub">{{ Str::limit($product->description, 50) }}</p>
+                                </div>
+                                <div class="product_overlay">
+                                    <a href="{{ route('product.details', $product->id) }}" class="button primary">
+                                        <div class="btn_text">View Details</div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Ajwa Dates</h5>
-                                </div>
-                                <div class="price">BDT 520</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Segai Dates</h5>
-                                </div>
-                                <div class="price">BDT 380</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Chewy texture with a delicate honey note.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Sokari Dates</h5>
-                                </div>
-                                <div class="price">BDT 430</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-                    <!-- add data attributes for simple JS filtering -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
-                            </div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Medjool Dates</h5>
-                                </div>
-                                <div class="price">BDT 450</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
+                    @empty
+                        <div class="col-12">
+                            <div class="alert alert-info text-center" role="alert">
+                                <i class="ri-search-line"></i> No products found matching your criteria.
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Ajwa Dates</h5>
-                                </div>
-                                <div class="price">BDT 520</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Segai Dates</h5>
-                                </div>
-                                <div class="price">BDT 380</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Chewy texture with a delicate honey note.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Sokari Dates</h5>
-                                </div>
-                                <div class="price">BDT 430</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-                    <!-- add data attributes for simple JS filtering -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
-                            </div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Medjool Dates</h5>
-                                </div>
-                                <div class="price">BDT 450</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Ajwa Dates</h5>
-                                </div>
-                                <div class="price">BDT 520</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Segai Dates</h5>
-                                </div>
-                                <div class="price">BDT 380</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Chewy texture with a delicate honey note.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Sokari Dates</h5>
-                                </div>
-                                <div class="price">BDT 430</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-                    <!-- add data attributes for simple JS filtering -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
-                            </div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Medjool Dates</h5>
-                                </div>
-                                <div class="price">BDT 450</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Ajwa Dates</h5>
-                                </div>
-                                <div class="price">BDT 520</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Segai Dates</h5>
-                                </div>
-                                <div class="price">BDT 380</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Chewy texture with a delicate honey note.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Sokari Dates</h5>
-                                </div>
-                                <div class="price">BDT 430</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-                    <!-- add data attributes for simple JS filtering -->
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
-                            </div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Medjool Dates</h5>
-                                </div>
-                                <div class="price">BDT 450</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Ajwa Dates</h5>
-                                </div>
-                                <div class="price">BDT 520</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Segai Dates</h5>
-                                </div>
-                                <div class="price">BDT 380</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Chewy texture with a delicate honey note.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Sokari Dates</h5>
-                                </div>
-                                <div class="price">BDT 430</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
-                            </div>
-                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a></div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
+
+                <!-- Pagination -->
+                @if($products->count() > 0)
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            {{ $products->links('pagination.custom') }}
+                        </div>
+                    </div>
+                @endif
             </div>
         </section>
 

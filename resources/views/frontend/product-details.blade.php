@@ -197,14 +197,14 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center py-4">
                     <div>
-                        <h1 class="h2 mb-1">Medjool Dates</h1>
+                        <h1 class="h2 mb-1">{{ $product->title }}</h1>
                         <p class="mb-0 text-muted">Premium pack — product details</p>
                     </div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('products') }}">Products</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Medjool</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $product->title }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -219,51 +219,53 @@
                                 <div class="badge bg-warning text-dark px-3 py-2">Best Seller</div>
                             </div>
                             <div class="main-image text-center mb-3 position-relative">
-                                <a href="/frontend/img/products/Medjool.jpg" class="main-link">
-                                    <img src="/frontend/img/products/Medjool.jpg" alt="Product main"
-                                        class="img-fluid main-product-img rounded">
+                                <a href="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}"
+                                    class="main-link">
+                                    <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}"
+                                        alt="{{ $product->title }}" class="img-fluid main-product-img rounded">
                                 </a>
                                 <button class="btn btn-light position-absolute product-gallery-open"
                                     style="right:1rem;bottom:1rem;box-shadow:0 8px 24px rgba(0,0,0,0.12);">Quick
                                     view</button>
                             </div>
                             <div class="thumbs d-flex gap-3 justify-content-center mt-2">
-                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Medjool.jpg"><img
-                                        src="/frontend/img/products/Medjool.jpg" class="thumb rounded active"
-                                        alt="thumb-1"></a>
-                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Ajwa.jpg"><img
-                                        src="/frontend/img/products/Ajwa.jpg" class="thumb rounded" alt="thumb-2"></a>
-                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Segai.jpg"><img
-                                        src="/frontend/img/products/Segai.jpg" class="thumb rounded" alt="thumb-3"></a>
-                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Sokari.jpg"><img
-                                        src="/frontend/img/products/Sokari.jpg" class="thumb rounded" alt="thumb-4"></a>
+                                @php
+                                    $allImages = collect();
+                                    if ($product->image) {
+                                        $allImages->push($product->image);
+                                    }
+                                    if ($product->images) {
+                                        $allImages = $allImages->merge($product->images->pluck('image_path'));
+                                    }
+                                @endphp
+                                @foreach ($allImages as $index => $imagePath)
+                                    <a href="#" class="thumb-link" data-src="{{ asset('storage/' . $imagePath) }}">
+                                        <img src="{{ asset('storage/' . $imagePath) }}"
+                                            class="thumb rounded {{ $index === 0 ? 'active' : '' }}"
+                                            alt="thumb-{{ $index + 1 }}">
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
                         <div class="product-info bg-white p-4 shadow-sm rounded-3">
-                            <h2 class="product-title">Medjool Dates — Premium Pack</h2>
+                            <h2 class="product-title">{{ $product->title }}</h2>
                             <div class="d-flex align-items-center mb-3">
                                 <div class="text-success">Free shipping over BDT 1000</div>
                             </div>
 
                             <div class="price mb-3 d-flex align-items-baseline gap-3">
-                                <span class="h3 text-danger">BDT 450</span>
-                                <span class="text-muted text-decoration-line-through">BDT 550</span>
+                                <span class="h3 text-danger">BDT {{ number_format($product->new_price, 0) }}</span>
+                                @if ($product->old_price)
+                                    <span class="text-muted text-decoration-line-through">BDT
+                                        {{ number_format($product->old_price, 0) }}</span>
+                                @endif
                             </div>
 
                             <div class="mb-5 text-muted">
-                                <p>Our Medjool Dates are harvested at peak ripeness and packed to preserve moisture and
-                                    flavour. Ideal for snacking, gifting and culinary use. Enjoy their rich, caramel-like
-                                    taste and chewy texture. Perfectly suited for your daily needs and special occasions.
-                                    Our Medjool Dates are harvested at peak ripeness and packed to preserve moisture and
-                                    flavour. Ideal for snacking, gifting and culinary use. Enjoy their rich, caramel-like
-                                    taste and chewy texture. Perfectly suited for your daily needs and special occasions.
-                                    Our Medjool Dates are harvested at peak ripeness and packed to preserve moisture and
-                                    flavour. Ideal for snacking, gifting and culinary use. Enjoy their rich, caramel-like
-                                    taste and chewy texture. Perfectly suited for your daily needs and special occasions.
-                                </p>
+                                <p>{{ $product->description }}</p>
                             </div>
 
 
@@ -290,86 +292,30 @@
                     </div>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Medjool Dates</h5>
+                    @foreach ($relatedProducts as $relatedProduct)
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product_card">
+                                <div class="product_img">
+                                    <img src="{{ $relatedProduct->image ? asset('storage/' . $relatedProduct->image) : asset('frontend/img/placeholder.jpg') }}"
+                                        alt="{{ $relatedProduct->title }}">
                                 </div>
-                                <div class="price">BDT 450</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Soft, caramel-like and naturally sweet. Packed for freshness &amp;
-                                    quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
+                                <div class="product_info">
+                                    <div class="product_meta">
+                                        <h5>{{ $relatedProduct->title }}</h5>
+                                    </div>
+                                    <div class="price">BDT {{ number_format($relatedProduct->new_price, 0) }}</div>
+                                </div>
+                                <div class="product_subwrap">
+                                    <p class="product_sub">{{ Str::limit($relatedProduct->description, 60) }}</p>
+                                </div>
+                                <div class="product_overlay">
+                                    <a href="{{ route('product.details', $relatedProduct->id) }}" class="button primary">
+                                        <div class="btn_text">View Details</div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Ajwa Dates</h5>
-                                </div>
-                                <div class="price">BDT 520</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Rich, mildly chewy and prized for flavor. Packed for freshness &amp;
-                                    quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Segai Dates</h5>
-                                </div>
-                                <div class="price">BDT 380</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Chewy texture with a delicate honey note. Packed for freshness &amp;
-                                    quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product_card">
-                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
-                            <div class="product_info">
-                                <div class="product_meta">
-                                    <h5>Sokari Dates</h5>
-                                </div>
-                                <div class="price">BDT 430</div>
-                            </div>
-                            <div class="product_subwrap">
-                                <p class="product_sub">Buttery, sweet and excellent for snacking. Packed for freshness
-                                    &amp; quick delivery.</p>
-                            </div>
-                            <div class="product_overlay">
-                                <a href="{{ route('product.details') }}" class="button primary">
-                                    <div class="btn_text">View Details</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
@@ -34,7 +35,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create($request->validated());
+        $data = $request->validated();
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+        
+        Category::create($data);
         return redirect()->route('categories.index')->with('success', 'Category added successfully');
     }
 
@@ -51,7 +59,18 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->validated());
+        $data = $request->validated();
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($category->image && Storage::disk('public')->exists($category->image)) {
+                Storage::disk('public')->delete($category->image);
+            }
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+        
+        $category->update($data);
         return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }
 
@@ -60,6 +79,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        // Delete image if exists
+        if ($category->image && Storage::disk('public')->exists($category->image)) {
+            Storage::disk('public')->delete($category->image);
+        }
+        
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     }

@@ -94,7 +94,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="logo" class="w-20 h-20">
+                    <img src="{{ asset('frontend/img/logo.png') }}" alt="logo" style="max-width: 150px">
                 </a>
             </div>
 
