@@ -1,0 +1,32 @@
+/* Products filter styles */
+.product-filter{
+    background:linear-gradient(180deg,#fff,#fff);
+    border-radius:14px;
+    padding:14px 18px;
+    margin-bottom:22px;
+    box-shadow:0 22px 56px rgba(21,28,36,0.06);
+    border:1px solid rgba(200,200,200,0.06);
+}
+.product-filter .filter_bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.product-filter .input-group{flex:1;min-width:240px}
+.product-filter .input-group-text{background:#fff;border:0;color:#B86B1F;font-size:20px;padding:.6rem .9rem;border-radius:10px;margin-right:8px;box-shadow:0 6px 18px rgba(184,107,31,0.06)}
+.product-filter .form-control{border-radius:12px;border:1px solid #f0f0f0;padding:1rem 1rem;background:linear-gradient(180deg,#fff,#fbfbfb);font-size:1.3rem}
+.product-filter .form-control::placeholder{color:#b5b9bd}
+.product-filter .form-control:focus{box-shadow:0 18px 48px rgba(184,107,31,0.08);border-color:#B86B1F}
+.product-filter .select-wrap{position:relative;min-width:200px}
+.product-filter .select-wrap:after{content:"\e5c5";font-family:RemixIcon;position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#9aa0a6;font-size:18px}
+.product-filter .form-select{appearance:none;-webkit-appearance:none;padding:.82rem 1rem;border-radius:12px;border:1px solid #f0f0f0;background:linear-gradient(180deg,#fff,#fbfbfb);min-width:160px;font-size:1.5rem}
+.product-filter .btn-clear{border-radius:10px;padding:.6rem .95rem;border:1px solid #e6e6e6;background:#fff;color:#333;display:inline-flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.5rem}
+.product-filter .btn-clear i{font-size:18px;color:#B86B1F}
+.filter-chips{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.filter-chips .chip{background:#fff;border:1px solid #f0f0f0;padding:1rem 1.8rem;border-radius:999px;cursor:pointer;color:#333;font-weight:700;box-shadow:0 12px 32px rgba(12,18,24,0.04);transition:transform .22s cubic-bezier(.2,.9,.2,1),box-shadow .22s;font-size:1.5rem}
+.filter-chips .chip:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(12,18,24,0.08)}
+.filter-chips .chip.disabled{opacity:.45;cursor:not-allowed;transform:none}
+.filter-chips .chip .count{display:inline-block;margin-left:8px;background:rgba(12,18,24,0.06);color:#333;padding:5px 9px;border-radius:999px;font-size:.9rem;font-weight:800}
+.filter-chips .chip.active{background:linear-gradient(90deg,#B86B1F,#e88d3a);color:#fff;border-color:transparent;box-shadow:0 22px 48px rgba(184,107,31,0.18)}
+.filter-chips .chip.active .count{background:rgba(255,255,255,0.18);color:#fff}
+@media (max-width:767px){
+    .product-filter{padding:12px}
+    .product-filter .filter_bar{gap:10px}
+    .product-filter .select-wrap{min-width:140px}
+}
