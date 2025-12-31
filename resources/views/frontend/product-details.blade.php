@@ -379,14 +379,6 @@
                                     </div>
                                 </label>
                                 <label class="pm-option">
-                                    <input type="radio" name="paymentMethod" id="pay_auto_bkash" value="auto-bkash">
-                                    <i class="ri-exchange-dollar-line"></i>
-                                    <div>
-                                        <div class="pm-label">Pay Online (Bkash)</div>
-                                        <div class="pm-sub">Secure checkout — instant confirmation</div>
-                                    </div>
-                                </label>
-                                <label class="pm-option">
                                     <input type="radio" name="paymentMethod" id="pay_cod" value="cod">
                                     <i class="ri-hand-coin-line"></i>
                                     <div>
@@ -438,7 +430,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" id="orderSubmitBtn" class="btn btn-primary">Submit Order</button>
-                    <button type="button" id="autoPayBtn" class="btn btn-warning d-none">Pay with Bkash</button>
                 </div>
             </div>
         </div>
@@ -535,23 +526,17 @@
                 $mainImg.attr('src', initSrc);
                 $mainLink.attr('href', initSrc);
 
-                // Payment UI: toggle manual fields / auto-pay button
+                // Payment UI: toggle manual fields
                 function refreshPaymentUI() {
                     var pm = $('input[name="paymentMethod"]:checked').val();
-                    if (pm === 'auto-bkash') {
-                        $('#manualPaymentFields').hide();
-                        $('#autoPayBtn').removeClass('d-none');
-                    } else if (pm === 'manual-bkash') {
+                    if (pm === 'manual-bkash') {
                         $('#manualPaymentFields').show();
-                        $('#autoPayBtn').addClass('d-none');
                     } else if (pm === 'cod') {
                         // Cash on Delivery — no payment fields shown
                         $('#manualPaymentFields').hide();
-                        $('#autoPayBtn').addClass('d-none');
                     } else {
                         // default fallback
                         $('#manualPaymentFields').show();
-                        $('#autoPayBtn').addClass('d-none');
                     }
                 }
                 refreshPaymentUI();
@@ -564,51 +549,7 @@
                     $lab.addClass('active').siblings().removeClass('active');
                 });
 
-                // Simulate automatic Bkash flow
-                function simulateBkashCheckout(amount, onSuccess, onCancel) {
-                    // Open a small popup (placeholder) and simulate success after 2s
-                    var w = window.open('about:blank', 'bkash_checkout', 'width=420,height=720');
-                    if (!w) {
-                        alert('Popup blocked. Please allow popups to pay.');
-                        if (onCancel) onCancel();
-                        return;
-                    }
-                    w.document.title = 'Bkash Checkout';
-                    w.document.body.style.fontFamily = 'Arial,Helvetica,sans-serif';
-                    w.document.body.style.padding = '20px';
-                    w.document.body.innerHTML = '<h3>Bkash Checkout (demo)</h3><p>Amount: ' + amount +
-                        '</p><p>Please wait...</p>';
-                    setTimeout(function() {
-                        try {
-                            w.close();
-                        } catch (e) {}
-                        if (onSuccess) onSuccess({
-                            transactionId: 'BKX' + Date.now()
-                        });
-                    }, 1600);
-                }
-
-                // Auto-pay button handler
-                $('#autoPayBtn').on('click', function() {
-                    var amount = $('.price').first().text().replace(/[^0-9]/g, '') || '0';
-                    $(this).prop('disabled', true).text('Processing...');
-                    simulateBkashCheckout(amount, function(result) {
-                        $('#autoPayBtn').prop('disabled', false).text('Pay with Bkash');
-                        // attach payment info and submit order as paid
-                        $('#manualTxnId').val(result.transactionId);
-                        $('input[name="paymentMethod"][value="auto-bkash"]').prop('checked',
-                            true);
-                        // mark as auto-paid and submit
-                        submitOrder({
-                            payment: 'bkash',
-                            transactionId: result.transactionId,
-                            paid: true
-                        });
-                    }, function() {
-                        $('#autoPayBtn').prop('disabled', false).text('Pay with Bkash');
-                        alert('Payment cancelled');
-                    });
-                });
+                // Simulate automatic Bkash flow (removed - not using auto-bkash)
 
                 // central submit function used for both manual and auto flows
                 function submitOrder(extra) {
@@ -618,49 +559,71 @@
                         return;
                     }
                     var payload = {
-                        product: $('.product-title').text().trim(),
-                        name: $('#customerName').val().trim(),
-                        phone: $('#customerPhone').val().trim(),
-                        address: $('#customerAddress').val().trim(),
+                        product_title: $('.product-title').text().trim(),
+                        customer_name: $('#customerName').val().trim(),
+                        customer_phone: $('#customerPhone').val().trim(),
+                        customer_address: $('#customerAddress').val().trim(),
                         quantity: $('#orderQty').val(),
                         note: $('#orderNote').val().trim(),
-                        paymentMethod: $('input[name="paymentMethod"]:checked').val()
+                        payment_method: $('input[name="paymentMethod"]:checked').val()
                     };
                     if (extra) Object.assign(payload, extra);
 
                     // If manual payment, require txn id when payment received manually
-                    if (payload.paymentMethod === 'manual-bkash' || payload.paymentMethod === 'manual-nagad') {
+                    if (payload.payment_method === 'manual-bkash') {
                         var txn = $('#manualTxnId').val().trim();
                         var num = $('#manualNumber').val().trim();
                         if (!txn || !num) {
                             alert('Please provide the mobile number and transaction ID for manual payment.');
                             return;
                         }
-                        payload.manual = {
-                            number: num,
-                            transactionId: txn
-                        };
-                        payload.paid = false;
-                    }
-
-                    if (payload.paymentMethod === 'auto-bkash') {
-                        // automatic flow should have been handled by autoPayBtn; if user hits submit directly, kick off the checkout
-                        $('#autoPayBtn').click();
-                        return;
+                        payload.manual_number = num;
+                        payload.transaction_id = txn;
                     }
 
                     console.log('Order payload:', payload);
                     $('#orderSubmitBtn').prop('disabled', true).text('Sending...');
-                    $('#orderMessage').removeClass('d-none').text("Order submitted. We'll contact you soon.");
-                    setTimeout(function() {
-                        var modalEl = document.getElementById('orderModal');
-                        var bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(
-                            modalEl);
-                        bsModal.hide();
-                        $('#orderForm')[0].reset();
-                        $('#orderSubmitBtn').prop('disabled', false).text('Submit Order');
-                        $('#orderMessage').addClass('d-none');
-                    }, 1200);
+                    
+                    // Send AJAX request
+                    $.ajax({
+                        url: '{{ route('orders.store') }}',
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        data: payload,
+                        success: function(response) {
+                            $('#orderMessage').removeClass('d-none').addClass('text-success').text(response.message);
+                            setTimeout(function() {
+                                var modalEl = document.getElementById('orderModal');
+                                var bsModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                                bsModal.hide();
+                                $('#orderForm')[0].reset();
+                                $('#orderSubmitBtn').prop('disabled', false).text('Submit Order');
+                                $('#orderMessage').addClass('d-none');
+                                // Redirect to success page
+                                window.location.href = '/order-success/' + response.order_id;
+                            }, 1000);
+                        },
+                        error: function(xhr) {
+                            var message = 'Failed to place order. Please try again.';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                message = xhr.responseJSON.message;
+                            }
+                            $('#orderMessage').removeClass('d-none').addClass('text-danger').text(message);
+                            $('#orderSubmitBtn').prop('disabled', false).text('Submit Order');
+                            
+                            // Show validation errors if any
+                            if (xhr.responseJSON && xhr.responseJSON.errors) {
+                                var errors = xhr.responseJSON.errors;
+                                var errorMsg = 'Validation errors:\n';
+                                for (var field in errors) {
+                                    errorMsg += errors[field][0] + '\n';
+                                }
+                                alert(errorMsg);
+                            }
+                        }
+                    });
                 }
 
                 // original submit button now calls central submit

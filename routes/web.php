@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -18,6 +19,8 @@ Route::get('/products', [FrontendController::class, 'products'])->name('products
 Route::get('/products/{id}/details', [FrontendController::class, 'productDetails'])->name('product.details');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/order-success/{order_id}', [FrontendController::class, 'orderSuccess'])->name('order.success');
 
 
 // Route::get('/products/{id}/details', [ProductController::class, 'productDetails'])->name('product.details');

@@ -75,7 +75,7 @@
                                 <p class="feat_desc">{{ Str::limit($product->description, 60) }}</p>
                             </div>
                             <div class="feat_actions">
-                                <a href="{{ route('product.details', $product->slug) }}" class="button splitedText">Order Now</a>
+                                <a href="{{ route('product.details', $product->id) }}" class="button splitedText">Order Now</a>
                             </div>
                         </div>
                     @endforeach
@@ -109,7 +109,7 @@
                                     <p class="product_sub">{{ Str::limit($product->description, 80) }}</p>
                                 </div>
                                 <div class="product_overlay">
-                                    <a href="{{ route('product.details', $product->slug) }}" class="button primary">
+                                    <a href="{{ route('product.details', $product->id) }}" class="button primary">
                                         <div class="btn_text">View Details</div>
                                     </a>
                                 </div>

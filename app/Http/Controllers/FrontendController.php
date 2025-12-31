@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -76,5 +77,9 @@ class FrontendController extends Controller
         return view('frontend.contact');
     }
 
-
+    public function orderSuccess($order_id)
+    {
+        $order = Order::findOrFail($order_id);
+        return view('frontend.order-success', compact('order'));
+    }
 }
