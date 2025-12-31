@@ -13,11 +13,11 @@
 					<h1>Zaman's <span>Agro</span></h1>
 					<p class="lead">Premium dates sourced from trusted growers — Medjool, Ajwa, Deglet Noor and more, packed for freshness and shipped worldwide.</p>
 					<div class="button_wrapper mt_40">
-						<a href="products.html" class="button primary">
-							<div class="btn_text splitedText">Shop Dates</div>
-							<i class="ri-shopping-cart-2-line"></i>
-						</a>
-						<a href="contact.html" class="button white_outline">
+					<a href="{{ route('products') }}" class="button primary">
+						<div class="btn_text splitedText">Shop Dates</div>
+						<i class="ri-shopping-cart-2-line"></i>
+					</a>
+					<a href="{{ route('contact') }}" class="button white_outline">
 							<div class="btn_text splitedText">Contact Us</div>
 							<i class="ri-arrow-right-s-line"></i>
 						</a>
@@ -32,23 +32,23 @@
 			<div class="container">
 				<div class="category_carousel owl-carousel category-carousel">
 					<div class="category_item">
-						<div class="cat_img"><img src="assets/img/category/ajwa.png" alt="Dates"></div>
+						<div class="cat_img"><img src="/frontend/img/category/ajwa.png" alt="Dates"></div>
 						<h5>Dates</h5>
 					</div>
 					<div class="category_item">
-						<div class="cat_img"><img src="assets/img/category/ghee.png" alt="Ghee"></div>
+						<div class="cat_img"><img src="/frontend/img/category/ghee.png" alt="Ghee"></div>
 						<h5>Ghee</h5>
 					</div>
 					<div class="category_item">
-						<div class="cat_img"><img src="assets/img/category/herbs.png" alt="Herbs"></div>
+						<div class="cat_img"><img src="/frontend/img/category/herbs.png" alt="Herbs"></div>
 						<h5>Herbs</h5>
 					</div>
 					<div class="category_item">
-						<div class="cat_img"><img src="assets/img/category/honey.png" alt="Honey"></div>
+						<div class="cat_img"><img src="/frontend/img/category/honey.png" alt="Honey"></div>
 						<h5>Honey</h5>
 					</div>
 					<div class="category_item">
-						<div class="cat_img"><img src="assets/img/category/nuts.png" alt="Nuts"></div>
+						<div class="cat_img"><img src="/frontend/img/category/nuts.png" alt="Nuts"></div>
 						<h5>Nuts</h5>
 					</div>
 				</div>
@@ -70,7 +70,7 @@
                     <div class="featured_card">
                         <span class="ribbon">Featured</span>
                         <div class="feat_img">
-                            <img src="assets/img/products/Medjool.jpg" alt="Medjool">
+                            <img src="/frontend/img/products/Medjool.jpg" alt="Medjool">
                         </div>
                         <div class="feat_meta">
                             <h5>Medjool Dates</h5>
@@ -78,13 +78,13 @@
                             <p class="feat_desc">Soft, caramel-like and naturally sweet — ideal for gifting.</p>
                         </div>
                         <div class="feat_actions">
-                            <a href="order.html" class="button splitedText">Order Now</a>
+                            <a href="{{ route('product.details') }}" class="button splitedText">Order Now</a>
                         </div>
                     </div>
                     <div class="featured_card">
                         <span class="ribbon">Limited</span>
                         <div class="feat_img">
-                            <img src="assets/img/products/Ajwa.jpg" alt="Ajwa">
+                            <img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa">
                         </div>
                         <div class="feat_meta">
                             <h5>Ajwa Dates</h5>
@@ -92,13 +92,13 @@
                             <p class="feat_desc">Rich and prized for heritage flavour and texture.</p>
                         </div>
                         <div class="feat_actions">
-                            <a href="order.html" class="button splitedText">Order Now</a>
+                            <a href="{{ route('product.details') }}" class="button splitedText">Order Now</a>
                         </div>
                     </div>
                     <div class="featured_card">
                         <span class="ribbon">Popular</span>
                         <div class="feat_img">
-                            <img src="assets/img/products/Segai.jpg" alt="Segai">
+                            <img src="/frontend/img/products/Segai.jpg" alt="Segai">
                         </div>
                         <div class="feat_meta">
                             <h5>Segai Dates</h5>
@@ -106,7 +106,7 @@
                             <p class="feat_desc">Chewy texture with a delicate honey note.</p>
                         </div>
                         <div class="feat_actions">
-                            <a href="order.html" class="button splitedText">Order Now</a>
+                            <a href="{{ route('product.details') }}" class="button splitedText">Order Now</a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Medjool.jpg" alt="Medjool Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Medjool Dates</h5>
@@ -138,7 +138,7 @@
                                 <p class="product_sub">Soft, caramel-like and naturally sweet. Packed for freshness &amp; quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -146,7 +146,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Ajwa Dates</h5>
@@ -157,7 +157,7 @@
                                 <p class="product_sub">Rich, mildly chewy and prized for flavor. Packed for freshness &amp; quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Segai.jpg" alt="Segai Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Segai Dates</h5>
@@ -176,7 +176,7 @@
                                 <p class="product_sub">Chewy texture with a delicate honey note. Packed for freshness &amp; quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -184,7 +184,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Sokari.jpg" alt="Sokari Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Sokari Dates</h5>
@@ -195,7 +195,7 @@
                                 <p class="product_sub">Buttery, sweet and excellent for snacking. Packed for freshness &amp; quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -203,7 +203,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Kholas.jpg" alt="Khalas Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Kholas.jpg" alt="Khalas Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Kholas Dates</h5>
@@ -214,7 +214,7 @@
                                 <p class="product_sub">Classic, tender with a subtle caramel finish. Packed for freshness &amp; quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -222,7 +222,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Wanan.jpg" alt="Wanan Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Wanan.jpg" alt="Wanan Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Wanan Dates</h5>
@@ -233,7 +233,7 @@
                                 <p class="product_sub">Premium, large-sized with jammy sweetness. Packed for freshness &amp; quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -242,7 +242,7 @@
                 </div>
 				<div class="row">
 					<div class="col-12 text-center product_cta">
-						<a href="products.html" class="button splitedText">Show more</a>
+					<a href="{{ route('products') }}" class="button splitedText">Show more</a>
 					</div>
 				</div>
 			</div>

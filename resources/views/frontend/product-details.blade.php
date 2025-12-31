@@ -202,8 +202,8 @@
                     </div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="products.html">Products</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('products') }}">Products</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Medjool</li>
                         </ol>
                     </nav>
@@ -219,8 +219,8 @@
                                 <div class="badge bg-warning text-dark px-3 py-2">Best Seller</div>
                             </div>
                             <div class="main-image text-center mb-3 position-relative">
-                                <a href="assets/img/products/Medjool.jpg" class="main-link">
-                                    <img src="assets/img/products/Medjool.jpg" alt="Product main"
+                                <a href="/frontend/img/products/Medjool.jpg" class="main-link">
+                                    <img src="/frontend/img/products/Medjool.jpg" alt="Product main"
                                         class="img-fluid main-product-img rounded">
                                 </a>
                                 <button class="btn btn-light position-absolute product-gallery-open"
@@ -228,15 +228,15 @@
                                     view</button>
                             </div>
                             <div class="thumbs d-flex gap-3 justify-content-center mt-2">
-                                <a href="#" class="thumb-link" data-src="assets/img/products/Medjool.jpg"><img
-                                        src="assets/img/products/Medjool.jpg" class="thumb rounded active"
+                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Medjool.jpg"><img
+                                        src="/frontend/img/products/Medjool.jpg" class="thumb rounded active"
                                         alt="thumb-1"></a>
-                                <a href="#" class="thumb-link" data-src="assets/img/products/Ajwa.jpg"><img
-                                        src="assets/img/products/Ajwa.jpg" class="thumb rounded" alt="thumb-2"></a>
-                                <a href="#" class="thumb-link" data-src="assets/img/products/Segai.jpg"><img
-                                        src="assets/img/products/Segai.jpg" class="thumb rounded" alt="thumb-3"></a>
-                                <a href="#" class="thumb-link" data-src="assets/img/products/Sokari.jpg"><img
-                                        src="assets/img/products/Sokari.jpg" class="thumb rounded" alt="thumb-4"></a>
+                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Ajwa.jpg"><img
+                                        src="/frontend/img/products/Ajwa.jpg" class="thumb rounded" alt="thumb-2"></a>
+                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Segai.jpg"><img
+                                        src="/frontend/img/products/Segai.jpg" class="thumb rounded" alt="thumb-3"></a>
+                                <a href="#" class="thumb-link" data-src="/frontend/img/products/Sokari.jpg"><img
+                                        src="/frontend/img/products/Sokari.jpg" class="thumb rounded" alt="thumb-4"></a>
                             </div>
                         </div>
                     </div>
@@ -292,7 +292,7 @@
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Medjool.jpg" alt="Medjool Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Medjool Dates</h5>
@@ -304,7 +304,7 @@
                                     quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -312,7 +312,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Ajwa Dates</h5>
@@ -324,7 +324,7 @@
                                     quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -332,7 +332,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Segai.jpg" alt="Segai Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Segai Dates</h5>
@@ -344,7 +344,7 @@
                                     quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -352,7 +352,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Sokari.jpg" alt="Sokari Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Sokari Dates</h5>
@@ -364,7 +364,7 @@
                                     &amp; quick delivery.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>

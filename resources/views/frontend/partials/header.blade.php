@@ -2,29 +2,29 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <!--logo start-->
-            <a href="index.html" class="logo_wrap">
-                <img src="assets/img/logo.png" class="w-100 logo" alt="">
+            <a href="{{ route('home') }}" class="logo_wrap">
+                <img src="/frontend/img/logo.png" class="w-100 logo" alt="">
             </a>
             <div class="header_menu">
                 <nav>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="{{ route('home') }}">Home</a></li>
+                        <li><a href="{{ route('about') }}">About Us</a></li>
                         <li class="dropdown_wrap">
-                            <a href="products.html">Products</a>
+                            <a href="{{ route('products') }}">Products</a>
                             <ul class="dropdown">
-                                <li><a href="products.html">Medjool Dates</a></li>
-                                <li><a href="products.html">Deglet Noor</a></li>
-                                <li><a href="products.html">Ajwa Dates</a></li>
-                                <li><a href="products.html">Sukkari Dates</a></li>
-                                <li><a href="products.html">Khalas Dates</a></li>
+                                <li><a href="{{ route('products') }}">Medjool Dates</a></li>
+                                <li><a href="{{ route('products') }}">Deglet Noor</a></li>
+                                <li><a href="{{ route('products') }}">Ajwa Dates</a></li>
+                                <li><a href="{{ route('products') }}">Sukkari Dates</a></li>
+                                <li><a href="{{ route('products') }}">Khalas Dates</a></li>
                             </ul>
                         </li>
                     </ul>
                 </nav>
 
                 <div class="header_cta">
-                    <a href="contact.html" class="button theme_outline">
+                    <a href="{{ route('contact') }}" class="button theme_outline">
                         <div class="btn_text splitedText">Contact Us</div>
                     </a>
                 </div>
@@ -52,14 +52,14 @@
                                 <div class="row">
                                     <div class="col-sm-6 menu_list_wrap">
                                         <ul>
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about-us.html">About Us</a></li>
-                                            <li><a href="products.html">Products</a></li>
-                                            <li><a href="contact.html">Contact Us</a></li>
+                                            <li><a href="{{ route('home') }}">Home</a></li>
+                                            <li><a href="{{ route('about') }}">About Us</a></li>
+                                            <li><a href="{{ route('products') }}">Products</a></li>
+                                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
                                         </ul>
                                     </div>
                                     <div class="col-sm-6 menu_img">
-                                        <img src="assets/img/products/Ajwa.jpg" class="w-100" alt="">
+                                        <img src="/frontend/img/products/Ajwa.jpg" class="w-100" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                     <a href="#" target="_blank"><i class="ri-facebook-fill"></i></a>
                                 </div>
                                 <div class="rotate_circle">
-                                    <img src="assets/img/get.png" alt="">
+                                    <img src="/frontend/img/get.png" alt="">
                                     <h4><span>LET'S MEET</span></h4>
                                 </div>
                             </div>

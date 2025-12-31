@@ -6,17 +6,17 @@
     <main class="overflow-hidden">
 		<!-- hero/banner -->
 		<div class="banner_area inner_banner">
-			<div class="banner_img" style="background-image: url(assets/img/home_bg.jpeg);"></div>
-			<div class="container">
-				<div class="banner_left parallax-fast parallax-content">
-					<h1>About Zaman's <span>Agro</span></h1>
-					<p class="lead">We source, pack and deliver premium dates with care — from trusted growers to your table.</p>
-					<div class="button_wrapper mt_40">
-						<a href="products.html" class="button primary">
-							<div class="btn_text splitedText">Shop Dates</div>
-							<i class="ri-shopping-cart-2-line"></i>
-						</a>
-						<a href="contact.html" class="button white_outline">
+            <div class="banner_img" style="background-image: url(/frontend/img/home_bg.jpeg);"></div>
+                <div class="container">
+                    <div class="banner_left parallax-fast parallax-content">
+                        <h1>About Zaman's <span>Agro</span></h1>
+                        <p class="lead">We source, pack and deliver premium dates with care — from trusted growers to your table.</p>
+                        <div class="button_wrapper mt_40">
+                        <a href="{{ route('products') }}" class="button primary">
+                            <div class="btn_text splitedText">Shop Dates</div>
+                            <i class="ri-shopping-cart-2-line"></i>
+                        </a>
+                        <a href="{{ route('contact') }}" class="button white_outline">
 							<div class="btn_text splitedText">Contact Us</div>
 							<i class="ri-arrow-right-s-line"></i>
 						</a>
@@ -58,13 +58,13 @@
 						</blockquote>
 
 						<div class="mt_30">
-							<a href="products.html" class="button primary"><div class="btn_text splitedText">Browse Products</div></a>
-							<a href="contact.html" class="button white_outline" style="margin-left:1rem"><div class="btn_text splitedText">Request Samples</div></a>
+							<a href="{{ route('products') }}" class="button primary"><div class="btn_text splitedText">Browse Products</div></a>
+							<a href="{{ route('contact') }}" class="button white_outline" style="margin-left:1rem"><div class="btn_text splitedText">Request Samples</div></a>
 						</div>
 					</div>
 					<div class="col-lg-6 fade-up">
 						<div style="position:relative;">
-							<img src="assets/img/products/Ajwa.jpg" alt="Our facility" class="w-100" style="border-radius:.8rem; box-shadow:0 12px 36px rgba(6,12,20,0.08);">
+							<img src="/frontend/img/products/Ajwa.jpg" alt="Our facility" class="w-100" style="border-radius:.8rem; box-shadow:0 12px 36px rgba(6,12,20,0.08);">
 							<div style="position:absolute; left:2rem; bottom:2rem; background:rgba(255,255,255,0.98); padding:1.4rem; border-radius:.8rem; box-shadow:0 12px 30px rgba(6,12,20,0.06); max-width:66%;">
 								<div style="font-size:1.4rem;color:var(--theme);font-weight:700;">Our Mission</div>
 								<p class="muted" style="margin:0.4rem 0 0 0;">Deliver natural, premium dates with transparency and care — from farm to table.</p>
@@ -115,8 +115,8 @@
 							<h3 style="font-size:2.8rem; margin-bottom:.6rem">Have a project or order?</h3>
 							<p class="muted" style="font-size:1.6rem; max-width:60rem">Wholesale, bulk orders or product questions — our dedicated team responds quickly. Tell us what you need and we'll help with pricing, samples and delivery options.</p>
 							<div class="mt_30">
-								<a href="products.html" class="button primary"><div class="btn_text splitedText">Browse Products</div></a>
-								<a href="contact.html" class="button white_outline" style="margin-left:1rem"><div class="btn_text splitedText">Contact Us</div></a>
+							<a href="{{ route('products') }}" class="button primary"><div class="btn_text splitedText">Browse Products</div></a>
+							<a href="{{ route('contact') }}" class="button white_outline" style="margin-left:1rem"><div class="btn_text splitedText">Contact Us</div></a>
 							</div>
 						</div>
 						<div class="col-md-5 text-md-end mt-3 mt-md-0">

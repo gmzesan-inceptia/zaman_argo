@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-lg-3 col-sm-6 mt_25 fade-up">
-                <a href="index.html" class="footer_logo">
-                    <img src="assets/img/logo.png" class="w-100" alt="Zaman's Agro logo">
+                <a href="{{ route('home') }}" class="footer_logo">
+                    <img src="/frontend/img/logo.png" class="w-100" alt="Zaman's Agro logo">
                 </a>
                 <p>Zaman's Agro supplies premium dates sourced from trusted growers. We specialise in Medjool, Deglet
                     Noor, Ajwa and other popular varieties, packed for quality and freshness.</p>
@@ -25,20 +25,20 @@
             <div class="col-lg-2 col-6 mt_50 fade-up">
                 <h4><span>Quick Links</span></h4>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('about') }}">About Us</a></li>
+                    <li><a href="{{ route('products') }}">Products</a></li>
+                    <li><a href="{{ route('contact') }}">Contact Us</a></li>
                 </ul>
             </div>
             <div class="col-lg-2 col-6 mt_50 fade-up">
                 <h4><span>Products</span></h4>
                 <ul>
-                    <li><a href="products.html">Medjool Dates</a></li>
-                    <li><a href="products.html">Deglet Noor</a></li>
-                    <li><a href="products.html">Ajwa Dates</a></li>
-                    <li><a href="products.html">Sukkari Dates</a></li>
-                    <li><a href="products.html">Khalas Dates</a></li>
+                    <li><a href="{{ route('products') }}">Medjool Dates</a></li>
+                    <li><a href="{{ route('products') }}">Deglet Noor</a></li>
+                    <li><a href="{{ route('products') }}">Ajwa Dates</a></li>
+                    <li><a href="{{ route('products') }}">Sukkari Dates</a></li>
+                    <li><a href="{{ route('products') }}">Khalas Dates</a></li>
                 </ul>
             </div>
         </div>

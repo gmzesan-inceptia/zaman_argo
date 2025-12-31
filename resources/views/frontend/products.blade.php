@@ -21,7 +21,7 @@
                     </div>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Products</li>
                         </ol>
                     </nav>
@@ -74,7 +74,7 @@
                     <!-- add data attributes for simple JS filtering -->
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Medjool.jpg" alt="Medjool Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Medjool Dates</h5>
@@ -85,7 +85,7 @@
                                 <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -94,7 +94,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Ajwa Dates</h5>
@@ -104,7 +104,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -112,7 +112,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Segai.jpg" alt="Segai Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Segai Dates</h5>
@@ -122,7 +122,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Chewy texture with a delicate honey note.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -130,7 +130,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Sokari.jpg" alt="Sokari Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Sokari Dates</h5>
@@ -140,7 +140,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -148,7 +148,7 @@
                     <!-- add data attributes for simple JS filtering -->
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Medjool.jpg" alt="Medjool Dates">
+                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
                             </div>
                             <div class="product_info">
                                 <div class="product_meta">
@@ -160,7 +160,7 @@
                                 <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -169,7 +169,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Ajwa Dates</h5>
@@ -179,7 +179,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -187,7 +187,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Segai.jpg" alt="Segai Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Segai Dates</h5>
@@ -197,7 +197,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Chewy texture with a delicate honey note.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -205,7 +205,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Sokari.jpg" alt="Sokari Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Sokari Dates</h5>
@@ -215,7 +215,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -223,7 +223,7 @@
                     <!-- add data attributes for simple JS filtering -->
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Medjool.jpg" alt="Medjool Dates">
+                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
                             </div>
                             <div class="product_info">
                                 <div class="product_meta">
@@ -235,7 +235,7 @@
                                 <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -244,7 +244,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Ajwa Dates</h5>
@@ -254,7 +254,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -262,7 +262,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Segai.jpg" alt="Segai Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Segai Dates</h5>
@@ -272,7 +272,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Chewy texture with a delicate honey note.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -280,7 +280,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Sokari.jpg" alt="Sokari Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Sokari Dates</h5>
@@ -290,7 +290,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -298,7 +298,7 @@
                     <!-- add data attributes for simple JS filtering -->
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Medjool.jpg" alt="Medjool Dates">
+                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
                             </div>
                             <div class="product_info">
                                 <div class="product_meta">
@@ -310,7 +310,7 @@
                                 <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -319,7 +319,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Ajwa Dates</h5>
@@ -329,7 +329,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -337,7 +337,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Segai.jpg" alt="Segai Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Segai Dates</h5>
@@ -347,7 +347,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Chewy texture with a delicate honey note.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -355,7 +355,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Sokari.jpg" alt="Sokari Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Sokari Dates</h5>
@@ -365,7 +365,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -373,7 +373,7 @@
                     <!-- add data attributes for simple JS filtering -->
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="medjool" data-price="450">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Medjool.jpg" alt="Medjool Dates">
+                            <div class="product_img"><img src="/frontend/img/products/Medjool.jpg" alt="Medjool Dates">
                             </div>
                             <div class="product_info">
                                 <div class="product_meta">
@@ -385,7 +385,7 @@
                                 <p class="product_sub">Soft, caramel-like and naturally sweet.</p>
                             </div>
                             <div class="product_overlay">
-                                <a href="product-details.html" class="button primary">
+                                <a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a>
                             </div>
@@ -394,7 +394,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="ajwa" data-price="520">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Ajwa.jpg" alt="Ajwa Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Ajwa Dates</h5>
@@ -404,7 +404,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Rich, mildly chewy and prized for flavor.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -412,7 +412,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="segai" data-price="380">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Segai.jpg" alt="Segai Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Segai.jpg" alt="Segai Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Segai Dates</h5>
@@ -422,7 +422,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Chewy texture with a delicate honey note.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>
@@ -430,7 +430,7 @@
 
                     <div class="col-lg-3 col-md-4 col-sm-6" data-category="sokkari" data-price="430">
                         <div class="product_card">
-                            <div class="product_img"><img src="assets/img/products/Sokari.jpg" alt="Sokari Dates"></div>
+                            <div class="product_img"><img src="/frontend/img/products/Sokari.jpg" alt="Sokari Dates"></div>
                             <div class="product_info">
                                 <div class="product_meta">
                                     <h5>Sokari Dates</h5>
@@ -440,7 +440,7 @@
                             <div class="product_subwrap">
                                 <p class="product_sub">Buttery, sweet and excellent for snacking.</p>
                             </div>
-                            <div class="product_overlay"><a href="product-details.html" class="button primary">
+                            <div class="product_overlay"><a href="{{ route('product.details') }}" class="button primary">
                                     <div class="btn_text">View Details</div>
                                 </a></div>
                         </div>

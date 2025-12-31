@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
@@ -14,16 +15,11 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/about-us', [FrontendController::class, 'about'])->name('about');
 Route::get('/products', [FrontendController::class, 'products'])->name('products');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
-Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
-
+Route::get('/products/details', [FrontendController::class, 'productDetails'])->name('product.details');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 
 // Route::get('/products/{id}/details', [ProductController::class, 'productDetails'])->name('product.details');
-// Route::get('/careers', [FrontendController::class, 'careers'])->name('careers');
-// Route::get('/careers/{id}/details', [ProductController::class, 'careerDetails'])->name('career.details');
-// Route::get('blogs/{id}/details', [FrontendController::class, 'blogDetails'])->name('blog.details');
-
-
 
 
 
