@@ -12,6 +12,7 @@ class Order extends Model
         'customer_address',
         'product_title',
         'quantity',
+        'total_price',
         'note',
         'payment_method',
         'manual_number',

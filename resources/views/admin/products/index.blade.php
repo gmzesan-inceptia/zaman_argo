@@ -24,12 +24,14 @@
                     <a href="{{ route('products.create') }}" class="add-new">Add Product <i class="ms-1 ri-add-line"></i></a>
                 </div>
                 <div class="card-body" style="overflow-x: auto">
-                    <table class="table dataTable w-100" id="product-table" style="min-width: 800px;">
+                    <table class="table dataTable w-100" id="product-table" style="min-width: 900px;">
                         <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Product Title</th>
                                 <th>Category</th>
+                                <th>Tag</th>
+                                <th>Unit</th>
                                 <th>Description</th>
                                 <th>Image</th>
                                 <th>Old Price</th>
@@ -59,6 +61,8 @@
                     { data: 'id' },
                     { data: 'title', name: 'title', orderable: true, searchable: true },
                     { data: 'category_id', name: 'category_id', orderable: true, searchable: true },
+                    { data: 'tag', name: 'tag', orderable: true, searchable: true },
+                    { data: 'unit', name: 'unit', orderable: true, searchable: true },
                     { data: 'description', name: 'description', orderable: false, searchable: true },
                     {
                         data: 'image',

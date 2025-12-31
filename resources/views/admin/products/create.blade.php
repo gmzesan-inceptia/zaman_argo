@@ -160,6 +160,33 @@
                                     @enderror
                                 </div>
 
+                                {{-- Tag --}}
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label custom-label">Tag</label>
+                                    <select name="tag" id="tag" class="form-select custom-input">
+                                        <option value="">-- Select Tag --</option>
+                                        <option value="featured" {{ old('tag') === 'featured' ? 'selected' : '' }}>Featured</option>
+                                        <option value="popular" {{ old('tag') === 'popular' ? 'selected' : '' }}>Popular</option>
+                                        <option value="limited" {{ old('tag') === 'limited' ? 'selected' : '' }}>Limited</option>
+                                        <option value="sale" {{ old('tag') === 'sale' ? 'selected' : '' }}>Sale</option>
+                                        <option value="new" {{ old('tag') === 'new' ? 'selected' : '' }}>New</option>
+                                        <option value="general" {{ old('tag') === 'general' ? 'selected' : '' }}>General</option>
+                                    </select>
+                                    @error('tag')
+                                        <div class="error_msg">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Unit --}}
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label custom-label">Unit</label>
+                                    <input type="text" class="form-control custom-input" name="unit"
+                                        placeholder="e.g., kg, box, piece" value="{{ old('unit') }}">
+                                    @error('unit')
+                                        <div class="error_msg">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                                 {{-- Old Price --}}
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label custom-label">Old Price</label>

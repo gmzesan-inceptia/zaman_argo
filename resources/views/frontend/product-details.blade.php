@@ -216,7 +216,9 @@
                     <div class="col-lg-6">
                         <div class="product-gallery bg-white p-4 shadow-sm rounded-3">
                             <div class="d-flex justify-content-between mb-2 align-items-start">
-                                <div class="badge bg-warning text-dark px-3 py-2">Best Seller</div>
+                                @if($product->tag)
+                                    <div class="badge bg-warning text-dark px-3 py-2">{{ ucfirst($product->tag) }}</div>
+                                @endif
                             </div>
                             <div class="main-image text-center mb-3 position-relative">
                                 <a href="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}"
@@ -251,9 +253,27 @@
 
                     <div class="col-lg-6">
                         <div class="product-info bg-white p-4 shadow-sm rounded-3">
-                            <h2 class="product-title">{{ $product->title }}</h2>
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h2 class="product-title mb-0">{{ $product->title }}</h2>
+                                @if($product->tag)
+                                    <span style="background: #B86B1F; color: white; padding: 0.4rem 0.8rem; border-radius: 0.4rem; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; white-space: nowrap;">
+                                        {{ $product->tag }}
+                                    </span>
+                                @endif
+                            </div>
+                            
+                            @if($product->unit)
+                                <div class="mb-3">
+                                    <small class="text-muted" style="font-size: 0.95rem;">
+                                        <i class="ri-scales-3-line"></i> Unit: <strong>{{ $product->unit }}</strong>
+                                    </small>
+                                </div>
+                            @endif
+
                             <div class="d-flex align-items-center mb-3">
-                                <div class="text-success">Free shipping over BDT 1000</div>
+                                <div class="text-success">
+                                    Shipping Charge: BDT {{ number_format($shippingCharge, 0) }}
+                                </div>
                             </div>
 
                             <div class="price mb-3 d-flex align-items-baseline gap-3">
@@ -323,7 +343,7 @@
 
     <!-- Order Modal -->
     <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="orderModalLabel">Place Order</h5>
@@ -347,6 +367,49 @@
                             <span class="input-group-text"><i class="ri-map-pin-line"></i></span>
                             <textarea id="customerAddress" name="address" class="form-control"
                                 placeholder="Delivery address (street, area, city)" rows="2" required></textarea>
+                        </div>
+
+                        <!-- Product Info & Price Calculation -->
+                        <div class="mb-3 p-3" style="background: #f8f9fa; border-radius: 0.75rem; border: 1px solid #e6e6e6;">
+                            <div class="mb-3">
+                                <label class="form-label">Product</label>
+                                <div style="font-weight: 600; color: #2b2b2b;">{{ $product->title }}</div>
+                                @if($product->unit)
+                                    <small class="text-muted" style="font-size: 0.9rem;">
+                                        <i class="ri-scales-3-line"></i> Unit: <strong>{{ $product->unit }}</strong>
+                                    </small>
+                                @endif
+                            </div>
+
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <small class="text-muted d-block mb-1">Unit Price</small>
+                                    <div style="font-size: 1rem; font-weight: 600; color: #2b2b2b;">
+                                        BDT <span id="modalUnitPrice">{{ number_format($product->new_price, 0) }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <small class="text-muted d-block mb-1">Subtotal</small>
+                                    <div style="font-size: 1rem; font-weight: 600; color: #2b2b2b;">
+                                        BDT <span id="modalSubtotal">{{ number_format($product->new_price, 0) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mb-2 pb-2" style="border-bottom: 1px solid #ddd;">
+                                <div class="col-6">
+                                    <small class="text-muted d-block mb-1">Shipping</small>
+                                    <div style="font-size: 1rem; font-weight: 600; color: #2b2b2b;">
+                                        BDT <span id="modalShippingCharge">0</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <small class="text-muted d-block mb-1">Total Price</small>
+                                    <div style="font-size: 1.2rem; font-weight: 700; color: #B86B1F;">
+                                        BDT <span id="modalTotalPrice">{{ number_format($product->new_price, 0) }}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mb-3 row">
@@ -440,6 +503,29 @@
     <script>
         (function($) {
             $(function() {
+                // Global shipping charge variable (passed from controller)
+                const SHIPPING_CHARGE = {{ $shippingCharge ?? 100 }};
+                
+                // Product price for calculation
+                const unitPrice = {{ $product->new_price }};
+                
+                // Update total price when quantity changes
+                function updateTotalPrice() {
+                    const qty = parseInt($('#orderQty').val()) || 1;
+                    const subtotal = qty * unitPrice;
+                    const totalPrice = subtotal + SHIPPING_CHARGE;
+                    
+                    $('#modalSubtotal').text(new Intl.NumberFormat('en-US').format(subtotal));
+                    $('#modalShippingCharge').text(new Intl.NumberFormat('en-US').format(SHIPPING_CHARGE));
+                    $('#modalTotalPrice').text(new Intl.NumberFormat('en-US').format(totalPrice));
+                }
+                
+                // Listen for quantity input changes
+                $('#orderQty').on('input change', updateTotalPrice);
+                
+                // Initialize on modal open
+                $('#orderModal').on('show.bs.modal', updateTotalPrice);
+                
                 var $gallery = $('.product-gallery');
                 var $mainLink = $gallery.find('.main-link');
                 var $mainImg = $mainLink.find('img.main-product-img');
@@ -560,6 +646,7 @@
                     }
                     var payload = {
                         product_title: $('.product-title').text().trim(),
+                        product_price: unitPrice,
                         customer_name: $('#customerName').val().trim(),
                         customer_phone: $('#customerPhone').val().trim(),
                         customer_address: $('#customerAddress').val().trim(),

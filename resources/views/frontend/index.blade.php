@@ -55,22 +55,21 @@
 					<button class="feat_next" aria-label="Next"><i class="ri-arrow-right-s-line"></i></button>
 				</div>
                 <div class="featured_carousel owl-carousel">
-                    @foreach($featured as $index => $product)
+                    @foreach($featured as $product)
                         <div class="featured_card">
-                            <span class="ribbon">
-                                @if($index === 0)
-                                    Featured
-                                @elseif($index === 1)
-                                    Limited
-                                @else
-                                    Popular
-                                @endif
-                            </span>
+                            @if($product->tag)
+                                <span class="ribbon">{{ ucfirst($product->tag) }}</span>
+                            @endif
                             <div class="feat_img">
                                 <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}">
                             </div>
                             <div class="feat_meta">
                                 <h5>{{ $product->title }}</h5>
+                                @if($product->unit)
+                                    <small class="text-muted d-block mb-2">
+                                        <i class="ri-scales-3-line"></i> {{ $product->unit }}
+                                    </small>
+                                @endif
                                 <div class="price">BDT {{ number_format($product->new_price, 0) }}</div>
                                 <p class="feat_desc">{{ Str::limit($product->description, 60) }}</p>
                             </div>
@@ -98,11 +97,21 @@
                     @foreach($products as $product)
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="product_card">
+                                @if($product->tag)
+                                    <div style="position: absolute; top: 10px; right: 10px; background: #B86B1F; color: white; padding: 0.3rem 0.6rem; border-radius: 0.3rem; font-size: 0.75rem; font-weight: 600; z-index: 10; text-transform: uppercase;">
+                                        {{ $product->tag }}
+                                    </div>
+                                @endif
                                 <div class="product_img"><img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}"></div>
                                 <div class="product_info">
                                     <div class="product_meta">
                                         <h5>{{ $product->title }}</h5>
                                     </div>
+                                    @if($product->unit)
+                                        <small class="text-muted d-block mb-2" style="font-size: 0.85rem;">
+                                            <i class="ri-scales-3-line"></i> {{ $product->unit }}
+                                        </small>
+                                    @endif
                                     <div class="price">BDT {{ number_format($product->new_price, 0) }}</div>
                                 </div>
                                 <div class="product_subwrap">

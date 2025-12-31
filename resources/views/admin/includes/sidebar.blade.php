@@ -1,9 +1,9 @@
 <div class="sidebar sidebar-navigation active">
     <div class="logo_content">
         <a href="{{ route('dashboard') }}" class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="logo" class="logo_img" style="width: 50px"/>
+            <img src="{{ asset('frontend/img/logo.png') }}" alt="logo" class="logo_img" style="width: 50px"/>
             <div class="logo_name">
-                <img src="{{ asset('images/logo_name_white.png') }}" alt="logo" class="logo_name_img">
+                Zaman's Agro
             </div>
         </a>
     </div>
@@ -44,6 +44,14 @@
             class="{{ Route::is('products.*') ? 'active-focus' : '' }}">
                 <i class="ri-product-hunt-line"></i>
                 <span class="link_names">Manage Products</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('orders.index') }}"
+            class="{{ Route::is('orders.*') ? 'active-focus' : '' }}">
+                <i class="ri-shopping-bag-2-line"></i>
+                <span class="link_names">Manage Orders</span>
             </a>
         </li>
 

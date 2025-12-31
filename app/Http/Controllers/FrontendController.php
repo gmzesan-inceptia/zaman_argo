@@ -13,7 +13,7 @@ class FrontendController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $featured = Product::latest()->limit(3)->get();
+        $featured = Product::where('tag', 'featured')->latest()->limit(3)->get();
         $products = Product::latest()->limit(8)->get();
         return view('frontend.index', compact('categories', 'featured', 'products'));
     }
@@ -68,7 +68,8 @@ class FrontendController extends Controller
                                     ->where('id', '!=', $product->id)
                                     ->limit(4)
                                     ->get();
-        return view('frontend.product-details', compact('product', 'relatedProducts'));
+        $shippingCharge = 100; // Global shipping charge in BDT
+        return view('frontend.product-details', compact('product', 'relatedProducts', 'shippingCharge'));
     }
 
     

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('customer_address');
             $table->string('product_title');
             $table->integer('quantity');
+            $table->decimal('total_price', 12, 2)->default(0);
             $table->text('note')->nullable();
             $table->enum('payment_method', ['manual-bkash', 'cod'])->default('manual-bkash');
             $table->string('manual_number')->nullable();

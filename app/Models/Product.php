@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class Product extends Model
 {
     protected $fillable = [
-        'category_id','title','slug','description','image','old_price','new_price'
+        'category_id','title','slug','tag','unit','description','image','old_price','new_price'
     ];
 
     public function category() {

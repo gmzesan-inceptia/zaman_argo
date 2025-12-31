@@ -10,12 +10,16 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request)
     {
         try {
+            $shippingCharge = 100; // Global shipping charge
+            $totalPrice = ($request->quantity * $request->product_price) + $shippingCharge;
+            
             $order = Order::create([
                 'customer_name' => $request->customer_name,
                 'customer_phone' => $request->customer_phone,
                 'customer_address' => $request->customer_address,
                 'product_title' => $request->product_title,
                 'quantity' => $request->quantity,
+                'total_price' => $totalPrice,
                 'note' => $request->note,
                 'payment_method' => $request->payment_method,
                 'manual_number' => $request->manual_number,

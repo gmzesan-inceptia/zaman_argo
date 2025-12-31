@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -49,6 +50,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('categories/{id}/subcategories', [ProductController::class, 'getSubcategories'])->name('categories.subcategories');
         
         Route::resource('contacts', \App\Http\Controllers\ContactController::class)->only(['index', 'destroy']);
+
+        Route::resource('orders', AdminOrderController::class)->only(['index', 'show']);
+        Route::patch('/orders/{id}/approve', [AdminOrderController::class, 'approve'])->name('orders.approve');
+        Route::patch('/orders/{id}/reject', [AdminOrderController::class, 'reject'])->name('orders.reject');
+        Route::patch('/orders/{id}/shipped', [AdminOrderController::class, 'shipped'])->name('orders.shipped');
+        Route::patch('/orders/{id}/delivered', [AdminOrderController::class, 'delivered'])->name('orders.delivered');
     });
 
 

@@ -19,11 +19,17 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Product::select('id', 'slug', 'category_id', 'title', 'description', 'image', 'old_price', 'new_price')->with(['category:id,name'])->get();
+            $query = Product::select('id', 'slug', 'category_id', 'title', 'tag', 'unit', 'description', 'image', 'old_price', 'new_price')->with(['category:id,name'])->get();
             return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('category_id', function ($row) {
                     return $row->category ? $row->category->name : 'N/A';
+                })
+                ->addColumn('tag', function ($row) {
+                    return $row->tag ? ucfirst($row->tag) : '-';
+                })
+                ->addColumn('unit', function ($row) {
+                    return $row->unit ?: '-';
                 })
                 ->addColumn('image', function ($row) {
                     return $row->image ? asset('storage/' . $row->image) : 'No Image';

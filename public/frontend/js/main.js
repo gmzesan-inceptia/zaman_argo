@@ -164,6 +164,13 @@
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             infinite: false,
             syncTouch: true,
+            prevent: (node) => {
+                return (
+                    node.classList &&
+                    (node.classList.contains("modal") ||
+                        node.classList.contains("modal-body"))
+                );
+            },
         });
         const update = (time) => {
             lenis.raf(time * 1000);

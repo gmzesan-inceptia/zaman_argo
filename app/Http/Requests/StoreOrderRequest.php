@@ -26,6 +26,7 @@ class StoreOrderRequest extends FormRequest
             'customer_phone' => 'required|string|min:10|max:20',
             'customer_address' => 'required|string|min:10|max:500',
             'product_title' => 'required|string',
+            'product_price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1|max:100',
             'note' => 'nullable|string|max:500',
             'payment_method' => 'required|in:manual-bkash,cod',
