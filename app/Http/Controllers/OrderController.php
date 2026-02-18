@@ -10,7 +10,12 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request)
     {
         try {
-            $shippingCharge = 100; // Global shipping charge
+            // Calculate shipping charge based on delivery location
+            $shippingCharges = [
+                'dhaka' => 80,
+                'outside' => 120
+            ];
+            $shippingCharge = $shippingCharges[$request->delivery_location] ?? 80;
             $totalPrice = ($request->quantity * $request->product_price) + $shippingCharge;
             
             $order = Order::create([
@@ -20,6 +25,8 @@ class OrderController extends Controller
                 'product_title' => $request->product_title,
                 'quantity' => $request->quantity,
                 'total_price' => $totalPrice,
+                'delivery_location' => $request->delivery_location,
+                'shipping_charge' => $shippingCharge,
                 'note' => $request->note,
                 'payment_method' => $request->payment_method,
                 'manual_number' => $request->manual_number,

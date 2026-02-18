@@ -68,8 +68,11 @@ class FrontendController extends Controller
                                     ->where('id', '!=', $product->id)
                                     ->limit(4)
                                     ->get();
-        $shippingCharge = 100; // Global shipping charge in BDT
-        return view('frontend.product-details', compact('product', 'relatedProducts', 'shippingCharge'));
+        $shippingCharges = [
+            'dhaka' => 80,      // Inside Dhaka
+            'outside' => 120    // Outside Dhaka
+        ];
+        return view('frontend.product-details', compact('product', 'relatedProducts', 'shippingCharges'));
     }
 
     

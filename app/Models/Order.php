@@ -13,6 +13,8 @@ class Order extends Model
         'product_title',
         'quantity',
         'total_price',
+        'delivery_location',
+        'shipping_charge',
         'note',
         'payment_method',
         'manual_number',

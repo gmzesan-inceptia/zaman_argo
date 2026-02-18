@@ -23,19 +23,20 @@
                         </nav>
                     </div>
                 </div>
-                <div class="card-body" style="overflow-x: auto">
-                    <table class="table dataTable w-100" id="orders-table" style="min-width: 1000px;">
+                <div class="card-body" style="overflow-x: auto;">
+                    <table class="table dataTable w-100" id="orders-table" style="min-width: 1200px; font-size: 1.05rem;">
                         <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Customer Name</th>
-                                <th>Product</th>
-                                <th>Qty</th>
-                                <th>Payment Method</th>
-                                <th>Total Price</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Action</th>
+                                <th style="font-size: 1.15rem;">Order ID</th>
+                                <th style="font-size: 1.15rem;">Customer Name</th>
+                                <th style="font-size: 1.15rem;">Product</th>
+                                <th style="font-size: 1.15rem;">Qty</th>
+                                <th style="font-size: 1.15rem;">Location</th>
+                                <th style="font-size: 1.15rem;">Payment Method</th>
+                                <th style="font-size: 1.15rem;">Total Price</th>
+                                <th style="font-size: 1.15rem;">Status</th>
+                                <th style="font-size: 1.15rem;">Date</th>
+                                <th style="font-size: 1.15rem;">Action</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -61,6 +62,7 @@
                     { data: 'customer_name', name: 'customer_name', orderable: true, searchable: true },
                     { data: 'product_title', name: 'product_title', orderable: true, searchable: true },
                     { data: 'quantity', name: 'quantity', orderable: true, searchable: false },
+                    { data: 'delivery_location', name: 'delivery_location', orderable: true, searchable: true },
                     { data: 'payment_method', name: 'payment_method', orderable: true, searchable: true },
                     { data: 'total_price', name: 'total_price', orderable: true, searchable: false },
                     { data: 'status', name: 'status', orderable: true, searchable: true },
@@ -82,6 +84,18 @@
                     {
                         targets: 4,
                         render: function (data) {
+                            if (data === 'dhaka') {
+                                return '<span class="badge bg-success">Dhaka (80 BDT)</span>';
+                            } else if (data === 'outside') {
+                                return '<span class="badge bg-info">Outside (120 BDT)</span>';
+                            } else {
+                                return '<span class="badge bg-secondary">' + data + '</span>';
+                            }
+                        }
+                    },
+                    {
+                        targets: 5,
+                        render: function (data) {
                             if (data === 'manual-bkash') {
                                 return '<span class="badge bg-primary">Bkash/Nagad</span>';
                             } else if (data === 'cod') {
@@ -92,13 +106,13 @@
                         }
                     },
                     {
-                        targets: 5,
+                        targets: 6,
                         render: function (data) {
                             return 'BDT ' + new Intl.NumberFormat('en-US').format(data);
                         }
                     },
                     {
-                        targets: 6,
+                        targets: 7,
                         render: function (data) {
                             if (data === 'pending') {
                                 return '<span class="badge bg-warning text-dark">Pending</span>';
@@ -116,7 +130,7 @@
                         }
                     },
                     {
-                        targets: 7,
+                        targets: 8,
                         render: function (data) {
                             return new Date(data).toLocaleDateString('en-US', {
                                 year: 'numeric',

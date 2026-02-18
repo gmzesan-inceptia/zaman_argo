@@ -67,13 +67,13 @@
                                 <div class="h4">Zaman's Agro</div>
                                 <p><strong>Shop Address:</strong><br> Block D, Road 2, Aftabnagar, Dhaka</p>
                                 <p><strong>Email:</strong><br> <a
-                                        href="mailto:riazulislamabir99@gmail.com">riazulislamabir99@gmail.com</a></p>
-                                <p><strong>Phone:</strong><br> <a href="tel:+8801622374228">+880 1622-374228</a></p>
+                                        href="mailto:darkdestroyer9970@gmail.com">darkdestroyer9970@gmail.com</a></p>
+                                <p><strong>Phone:</strong><br> <a href="tel:+8801887556868">+8801887556868</a></p>
                                 <div class="social_icons mt_20">
-                                    <a href="#" target="_blank"><i class="ri-instagram-line"></i></a>
-                                    <a href="#" target="_blank"><i class="ri-linkedin-fill"></i></a>
-                                    <a href="#" target="_blank"><i class="ri-tiktok-fill"></i></a>
-                                    <a href="#" target="_blank"><i class="ri-facebook-fill"></i></a>
+                                    <a href="https://www.instagram.com/zamansagro/" target="_blank"><i class="ri-instagram-line"></i></a>
+                                    <a href="https://wa.me/8801887556868" target="_blank"><i class="ri-whatsapp-fill"></i></a>
+                                    <a href="https://www.tiktok.com/@zamansagro?lang=en-GB" target="_blank"><i class="ri-tiktok-fill"></i></a>
+                                    <a href="https://www.facebook.com/profile.php?id=61584491076754" target="_blank"><i class="ri-facebook-fill"></i></a>
                                 </div>
                                 <div class="rotate_circle">
                                     <img src="/frontend/img/get.png" alt="">

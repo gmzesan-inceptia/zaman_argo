@@ -28,6 +28,7 @@ class StoreOrderRequest extends FormRequest
             'product_title' => 'required|string',
             'product_price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1|max:100',
+            'delivery_location' => 'required|in:dhaka,outside',
             'note' => 'nullable|string|max:500',
             'payment_method' => 'required|in:manual-bkash,cod',
             'manual_number' => 'required_if:payment_method,manual-bkash|nullable|string|min:10|max:20',

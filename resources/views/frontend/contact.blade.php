@@ -103,14 +103,14 @@
 								</div>
 								<div class="contact_content">
 									<p><strong>Email</strong></p>
-									<a href="mailto:riazulislamabir99@gmail.com"> riazulislamabir99@gmail.com </a>
+									<a href="mailto:darkdestroyer9970@gmail.com"> darkdestroyer9970@gmail.com </a>
 								</div>
 							</div>
 							
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.1191377485097!2d90.4359691760526!3d23.81436218631645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c633b4c0780f%3A0x1875afab5e269c52!2sJCX%20Business%20Tower!5e0!3m2!1sen!2sbd!4v1761581842108!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="fade-up"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3651.5417321332857!2d90.436103!3d23.763716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjPCsDQ1JzQ5LjQiTiA5MMKwMjYnMTAuMCJF!5e0!3m2!1sen!2sbd!4v1771392958228!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 

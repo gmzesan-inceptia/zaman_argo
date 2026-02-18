@@ -11,7 +11,7 @@
 			<div class="container">
 				<div class="home_content">
 					<h1>Zaman's <span>Agro</span></h1>
-					<p class="lead">Premium dates sourced from trusted growers — Medjool, Ajwa, Deglet Noor and more, packed for freshness and shipped worldwide.</p>
+					<p class="lead">We provide fresh, organic foods carefully sourced to stay completely free from chemical mixing—because your health deserves purity and trust.</p>
 					<div class="button_wrapper mt_40">
 					<a href="{{ route('products') }}" class="button primary">
 						<div class="btn_text splitedText">Shop Dates</div>

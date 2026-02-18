@@ -121,6 +121,24 @@
                                 </div>
                             </div>
 
+                            <!-- Delivery Location and Shipping -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <h6 class="text-muted mb-2" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Delivery Location</h6>
+                                    @if($order->delivery_location === 'dhaka')
+                                        <span class="badge bg-success" style="font-size: 0.95rem; padding: 0.5rem 1rem;">Dhaka (80 BDT)</span>
+                                    @elseif($order->delivery_location === 'outside')
+                                        <span class="badge bg-info" style="font-size: 0.95rem; padding: 0.5rem 1rem;">Outside Dhaka (120 BDT)</span>
+                                    @else
+                                        <span class="badge bg-secondary" style="font-size: 0.95rem; padding: 0.5rem 1rem;">{{ ucfirst($order->delivery_location) }}</span>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <h6 class="text-muted mb-2" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Shipping Charge</h6>
+                                    <div style="color: #B86B1F; font-weight: 600; font-size: 1.1rem;">BDT {{ number_format($order->shipping_charge ?? 0, 0) }}</div>
+                                </div>
+                            </div>
+
                             @if($order->note)
                                 <div class="alert alert-light border-start" style="border-color: #B86B1F; border-width: 3px;">
                                     <h6 class="mb-2" style="color: #2c3e50; font-weight: 600;">

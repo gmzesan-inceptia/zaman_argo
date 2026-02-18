@@ -79,7 +79,7 @@
             border: 1px solid #e6e6e6;
             border-right: 0;
             padding: .6rem .85rem;
-            font-size: 1.2rem
+            font-size: 1.3rem
         }
 
         .modal .input-group .form-control {
@@ -87,7 +87,7 @@
         }
 
         .modal .form-label {
-            font-size: 1rem;
+            font-size: 1.15rem;
             font-weight: 600
         }
 
@@ -114,15 +114,17 @@
             }
         }
 
-        /* Payment method cards */
-        .payment-methods {
+        /* Delivery location & Payment method cards */
+        .payment-methods,
+        .delivery-methods {
             display: flex;
             gap: .75rem;
             align-items: center;
             margin-top: .5rem
         }
 
-        .pm-option {
+        .pm-option,
+        .dl-option {
             flex: 1;
             display: flex;
             gap: .75rem;
@@ -136,33 +138,39 @@
             transition: transform .14s, box-shadow .14s, border-color .14s
         }
 
-        .pm-option i {
+        .pm-option i,
+        .dl-option i {
             font-size: 1.4rem;
             color: #B86B1F
         }
 
-        .pm-option .pm-label {
+        .pm-option .pm-label,
+        .dl-option .dl-label {
             font-weight: 700;
             color: #2b2b2b;
             font-size: 1.2rem
         }
 
-        .pm-option .pm-sub {
+        .pm-option .pm-sub,
+        .dl-option .dl-sub {
             font-size: .92rem;
             color: #6b6f73
         }
 
-        .pm-option input[type=radio] {
+        .pm-option input[type=radio],
+        .dl-option input[type=radio] {
             position: absolute;
             left: -9999px
         }
 
-        .pm-option:hover {
+        .pm-option:hover,
+        .dl-option:hover {
             transform: translateY(-4px);
             box-shadow: 0 18px 40px rgba(12, 18, 24, 0.08)
         }
 
-        .pm-option.active {
+        .pm-option.active,
+        .dl-option.active {
             border-color: #B86B1F;
             box-shadow: 0 26px 60px rgba(184, 107, 31, 0.12);
             background: linear-gradient(90deg, rgba(184, 107, 31, 0.06), #fff)
@@ -264,7 +272,7 @@
                             
                             @if($product->unit)
                                 <div class="mb-3">
-                                    <small class="text-muted" style="font-size: 0.95rem;">
+                                    <small class="text-muted" style="font-size: 2rem;">
                                         <i class="ri-scales-3-line"></i> Unit: <strong>{{ $product->unit }}</strong>
                                     </small>
                                 </div>
@@ -272,7 +280,7 @@
 
                             <div class="d-flex align-items-center mb-3">
                                 <div class="text-success">
-                                    Shipping Charge: BDT {{ number_format($shippingCharge, 0) }}
+                                    Shipping: BDT 80-120 (Varies by location)
                                 </div>
                             </div>
 
@@ -375,7 +383,7 @@
                                 <label class="form-label">Product</label>
                                 <div style="font-weight: 600; color: #2b2b2b;">{{ $product->title }}</div>
                                 @if($product->unit)
-                                    <small class="text-muted" style="font-size: 0.9rem;">
+                                    <small class="text-muted" style="font-size: 1.1rem;">
                                         <i class="ri-scales-3-line"></i> Unit: <strong>{{ $product->unit }}</strong>
                                     </small>
                                 @endif
@@ -425,6 +433,29 @@
                                 <span class="input-group-text"><i class="ri-file-text-line"></i></span>
                                 <input type="text" class="form-control" id="orderNote" name="note"
                                     placeholder="Note (optional)">
+                            </div>
+                        </div>
+
+                        <!-- Delivery Location -->
+                        <div class="mb-3">
+                            <label class="form-label">Delivery Location</label>
+                            <div class="delivery-methods">
+                                <label class="dl-option active">
+                                    <input type="radio" name="deliveryLocation" value="dhaka" checked>
+                                    <i class="ri-map-pin-2-fill"></i>
+                                    <div>
+                                        <div class="dl-label">Inside Dhaka</div>
+                                        <div class="dl-sub">Shipping: 80 BDT</div>
+                                    </div>
+                                </label>
+                                <label class="dl-option">
+                                    <input type="radio" name="deliveryLocation" value="outside">
+                                    <i class="ri-map-pin-5-fill"></i>
+                                    <div>
+                                        <div class="dl-label">Outside Dhaka</div>
+                                        <div class="dl-sub">Shipping: 120 BDT</div>
+                                    </div>
+                                </label>
                             </div>
                         </div>
 
@@ -503,25 +534,36 @@
     <script>
         (function($) {
             $(function() {
-                // Global shipping charge variable (passed from controller)
-                const SHIPPING_CHARGE = {{ $shippingCharge ?? 100 }};
+                // Shipping charges based on location
+                const SHIPPING_CHARGES = {
+                    dhaka: {{ $shippingCharges['dhaka'] ?? 80 }},
+                    outside: {{ $shippingCharges['outside'] ?? 120 }}
+                };
+                let currentShippingCharge = SHIPPING_CHARGES.dhaka; // Default to Dhaka
                 
                 // Product price for calculation
                 const unitPrice = {{ $product->new_price }};
                 
-                // Update total price when quantity changes
+                // Update total price when quantity changes or location changes
                 function updateTotalPrice() {
                     const qty = parseInt($('#orderQty').val()) || 1;
                     const subtotal = qty * unitPrice;
-                    const totalPrice = subtotal + SHIPPING_CHARGE;
+                    const totalPrice = subtotal + currentShippingCharge;
                     
                     $('#modalSubtotal').text(new Intl.NumberFormat('en-US').format(subtotal));
-                    $('#modalShippingCharge').text(new Intl.NumberFormat('en-US').format(SHIPPING_CHARGE));
+                    $('#modalShippingCharge').text(new Intl.NumberFormat('en-US').format(currentShippingCharge));
                     $('#modalTotalPrice').text(new Intl.NumberFormat('en-US').format(totalPrice));
                 }
                 
                 // Listen for quantity input changes
                 $('#orderQty').on('input change', updateTotalPrice);
+                
+                // Listen for location changes
+                $('input[name="deliveryLocation"]').on('change', function() {
+                    const location = $(this).val();
+                    currentShippingCharge = SHIPPING_CHARGES[location] || SHIPPING_CHARGES.dhaka;
+                    updateTotalPrice();
+                });
                 
                 // Initialize on modal open
                 $('#orderModal').on('show.bs.modal', updateTotalPrice);
@@ -634,6 +676,14 @@
                     $radio.prop('checked', true).trigger('change');
                     $lab.addClass('active').siblings().removeClass('active');
                 });
+                
+                // Delivery Location UI: clicking the visual card toggles the radio and updates price
+                $('.delivery-methods').on('click', '.dl-option', function(e) {
+                    var $lab = $(this);
+                    var $radio = $lab.find('input[type=radio]');
+                    $radio.prop('checked', true).trigger('change');
+                    $lab.addClass('active').siblings().removeClass('active');
+                });
 
                 // Simulate automatic Bkash flow (removed - not using auto-bkash)
 
@@ -652,6 +702,8 @@
                         customer_address: $('#customerAddress').val().trim(),
                         quantity: $('#orderQty').val(),
                         note: $('#orderNote').val().trim(),
+                        delivery_location: $('input[name="deliveryLocation"]:checked').val(),
+                        shipping_charge: currentShippingCharge,
                         payment_method: $('input[name="paymentMethod"]:checked').val()
                     };
                     if (extra) Object.assign(payload, extra);
