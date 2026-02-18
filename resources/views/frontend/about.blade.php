@@ -84,7 +84,7 @@
                     <div class="col-lg-6 fade-up">
                         <div style="position:relative;">
                             <img src="/frontend/img/products/Ajwa.jpg" alt="Our facility" class="w-100"
-                                style="border-radius:.8rem; box-shadow:0 12px 36px rgba(6,12,20,0.08);">
+                                style="border-radius:.8rem; box-shadow:0 12px 36px rgba(6,12,20,0.08);" loading="lazy">
                             <div
                                 style="position:absolute; left:2rem; bottom:2rem; background:rgba(255,255,255,0.98); padding:1.4rem; border-radius:.8rem; box-shadow:0 12px 30px rgba(6,12,20,0.06); max-width:66%;">
                                 <div style="font-size:1.4rem;color:var(--theme);font-weight:700;">Our Mission</div>

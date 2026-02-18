@@ -78,7 +78,7 @@
                                     </div>
                                 @endif
                                 <div class="product_img">
-                                    <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}" alt="{{ $product->title }}">
+                                    <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}" alt="{{ $product->title }}" loading="lazy">
                                 </div>
                                 <div class="product_info">
                                     <div class="product_meta">

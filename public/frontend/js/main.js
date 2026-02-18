@@ -3,7 +3,7 @@
 
     $(window).on("load", function () {
         //===== Prealoder
-        $("#preloader").delay(400).fadeOut();
+        $("#preloader").delay(200).fadeOut(300);
     });
 
     $(document).ready(function () {
@@ -36,7 +36,7 @@
                 {
                     scrollTop: 0,
                 },
-                900
+                900,
             );
         });
 
@@ -67,7 +67,7 @@
                     {
                         scrollTop: target.offset().top - headerHeight,
                     },
-                    600
+                    600,
                 );
             }
         });
@@ -182,7 +182,7 @@
             "scroll",
             ({ scroll, limit, velocity, direction, progress }) => {
                 ScrollTrigger.update();
-            }
+            },
         );
         gsap.ticker.add(update);
         ScrollTrigger.scrollerProxy(document.body, {
@@ -218,14 +218,14 @@
                     stagger: 0.15,
                     opacity: 0,
                 },
-                "<"
+                "<",
             )
             .to(
                 "header .header_menu nav, header .header_menu ul + .button",
                 {
                     opacity: 0,
                 },
-                "<"
+                "<",
             )
             .from(
                 ".menu_img img",
@@ -234,7 +234,7 @@
                     stagger: 0.15,
                     opacity: 0,
                 },
-                "<"
+                "<",
             )
             .from(
                 ".animation_right_col>*",
@@ -244,7 +244,7 @@
                     stagger: 0.15,
                     opacity: 0,
                 },
-                "<"
+                "<",
             );
         // Toggle menu
         $(".menu_toggle").on("click", function () {

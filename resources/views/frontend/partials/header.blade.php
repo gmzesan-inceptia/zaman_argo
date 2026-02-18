@@ -57,7 +57,7 @@
                                         </ul>
                                     </div>
                                     <div class="col-sm-6 menu_img">
-                                        <img src="/frontend/img/products/Ajwa.jpg" class="w-100" alt="">
+                                        <img src="/frontend/img/products/Ajwa.jpg" class="w-100" alt="" loading="lazy">
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                     <a href="https://www.facebook.com/profile.php?id=61584491076754" target="_blank"><i class="ri-facebook-fill"></i></a>
                                 </div>
                                 <div class="rotate_circle">
-                                    <img src="/frontend/img/get.png" alt="">
+                                    <img src="/frontend/img/get.png" alt="" loading="lazy">
                                     <h4><span>LET'S MEET</span></h4>
                                 </div>
                             </div>

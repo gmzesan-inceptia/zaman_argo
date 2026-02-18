@@ -232,7 +232,7 @@
                                 <a href="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}"
                                     class="main-link">
                                     <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/placeholder.jpg') }}"
-                                        alt="{{ $product->title }}" class="img-fluid main-product-img rounded">
+                                        alt="{{ $product->title }}" class="img-fluid main-product-img rounded" loading="eager">
                                 </a>
                                 <button class="btn btn-light position-absolute product-gallery-open"
                                     style="right:1rem;bottom:1rem;box-shadow:0 8px 24px rgba(0,0,0,0.12);">Quick
@@ -252,7 +252,7 @@
                                     <a href="#" class="thumb-link" data-src="{{ asset('storage/' . $imagePath) }}">
                                         <img src="{{ asset('storage/' . $imagePath) }}"
                                             class="thumb rounded {{ $index === 0 ? 'active' : '' }}"
-                                            alt="thumb-{{ $index + 1 }}">
+                                            alt="thumb-{{ $index + 1 }}" loading="lazy">
                                     </a>
                                 @endforeach
                             </div>
@@ -325,7 +325,7 @@
                             <div class="product_card">
                                 <div class="product_img">
                                     <img src="{{ $relatedProduct->image ? asset('storage/' . $relatedProduct->image) : asset('frontend/img/placeholder.jpg') }}"
-                                        alt="{{ $relatedProduct->title }}">
+                                        alt="{{ $relatedProduct->title }}" loading="lazy">
                                 </div>
                                 <div class="product_info">
                                     <div class="product_meta">

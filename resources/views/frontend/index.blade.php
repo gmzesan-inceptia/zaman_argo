@@ -61,7 +61,7 @@
                                 <span class="ribbon">{{ ucfirst($product->tag) }}</span>
                             @endif
                             <div class="feat_img">
-                                <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}">
+                                <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}" loading="lazy">
                             </div>
                             <div class="feat_meta">
                                 <h5>{{ $product->title }}</h5>
@@ -102,7 +102,7 @@
                                         {{ $product->tag }}
                                     </div>
                                 @endif
-                                <div class="product_img"><img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}"></div>
+                                <div class="product_img"><img src="{{ $product->image ? asset('storage/' . $product->image) : asset('frontend/img/products/default.jpg') }}" alt="{{ $product->title }}" loading="lazy"></div>
                                 <div class="product_info">
                                     <div class="product_meta">
                                         <h5>{{ $product->title }}</h5>

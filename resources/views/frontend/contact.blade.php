@@ -139,7 +139,7 @@
                             <div class="col-12 mt_30">
                                 <button type="submit" id="submitBtn" class="button">
                                     <div class="btn_text splitedText">Send Now </div>
-                                    <img src="/frontend/img/longarrow.svg" alt="">
+                                    <img src="/frontend/img/longarrow.svg" alt="" loading="lazy">
                                 </button>
                             </div>
                         </div>
